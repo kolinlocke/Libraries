@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Oracle", "Data.Oracle\Data.Oracle.csproj", "{783629B7-4BB0-4435-B07E-5774A0ED5452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Oracle", "Data.Oracle\Data.Oracle.csproj", "{783629B7-4BB0-4435-B07E-5774A0ED5452}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataInterfaces", "..\Data\DataInterfaces\DataInterfaces.csproj", "{6F498041-D72A-444C-A253-3446DFEA764C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commons", "..\Commons\Commons\Commons.csproj", "{4AD3713F-E863-4B86-8ECA-EE6EA60B14C9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commons.EntityProps", "..\Commons\Commons.EntityProps\Commons.EntityProps.csproj", "{9F0D5A33-F992-4545-BEC4-2401B4A0A57D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{29FBA0EC-293F-480F-868F-89F502E51A8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F498041-D72A-444C-A253-3446DFEA764C} = {29FBA0EC-293F-480F-868F-89F502E51A8E}
+		{4AD3713F-E863-4B86-8ECA-EE6EA60B14C9} = {29FBA0EC-293F-480F-868F-89F502E51A8E}
+		{9F0D5A33-F992-4545-BEC4-2401B4A0A57D} = {29FBA0EC-293F-480F-868F-89F502E51A8E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC15A081-DCCD-4034-97AE-BCFA0F85BA65}
