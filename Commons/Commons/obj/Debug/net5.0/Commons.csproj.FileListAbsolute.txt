@@ -1,0 +1,11 @@
+C:\Projects\Libraries\Commons\Commons\bin\Debug\net5.0\Commons.deps.json
+C:\Projects\Libraries\Commons\Commons\bin\Debug\net5.0\Commons.dll
+C:\Projects\Libraries\Commons\Commons\bin\Debug\net5.0\ref\Commons.dll
+C:\Projects\Libraries\Commons\Commons\bin\Debug\net5.0\Commons.pdb
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.AssemblyInfoInputs.cache
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.AssemblyInfo.cs
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.csproj.CoreCompileInputs.cache
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.dll
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\ref\Commons.dll
+C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.pdb
