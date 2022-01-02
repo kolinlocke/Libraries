@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageOperation.Sftp", "StorageOperation.Sftp\StorageOperation.Sftp.csproj", "{27FE71DD-7820-406D-91BC-7271B0A76362}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageOperation", "..\StorageOperation\StorageOperation\StorageOperation.csproj", "{43C0A3C4-9547-4DCC-B565-7A22A0F35B31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27FE71DD-7820-406D-91BC-7271B0A76362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27FE71DD-7820-406D-91BC-7271B0A76362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27FE71DD-7820-406D-91BC-7271B0A76362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27FE71DD-7820-406D-91BC-7271B0A76362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C0A3C4-9547-4DCC-B565-7A22A0F35B31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C0A3C4-9547-4DCC-B565-7A22A0F35B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C0A3C4-9547-4DCC-B565-7A22A0F35B31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C0A3C4-9547-4DCC-B565-7A22A0F35B31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {087A2AAE-8D90-42F8-A38A-A953241D7F79}
+	EndGlobalSection
+EndGlobal
