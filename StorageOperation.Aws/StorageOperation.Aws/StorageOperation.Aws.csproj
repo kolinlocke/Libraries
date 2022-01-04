@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="S3DirectoryInfo.cs" />
+    <Compile Remove="S3FileInfo.cs" />
+    <Compile Remove="S3FileStream.cs" />
+    <Compile Remove="S3FileSystemInfo.cs" />
+    <Compile Remove="S3Helper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="3.7.5.8" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.7.5" />
   </ItemGroup>

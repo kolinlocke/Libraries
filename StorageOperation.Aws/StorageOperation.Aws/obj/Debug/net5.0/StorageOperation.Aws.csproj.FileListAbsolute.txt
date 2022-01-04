@@ -1,0 +1,5 @@
+C:\Projects\Libraries\StorageOperation.Aws\StorageOperation.Aws\obj\Debug\net5.0\StorageOperation.Aws.csproj.AssemblyReference.cache
+C:\Projects\Libraries\StorageOperation.Aws\StorageOperation.Aws\obj\Debug\net5.0\StorageOperation.Aws.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Libraries\StorageOperation.Aws\StorageOperation.Aws\obj\Debug\net5.0\StorageOperation.Aws.AssemblyInfoInputs.cache
+C:\Projects\Libraries\StorageOperation.Aws\StorageOperation.Aws\obj\Debug\net5.0\StorageOperation.Aws.AssemblyInfo.cs
+C:\Projects\Libraries\StorageOperation.Aws\StorageOperation.Aws\obj\Debug\net5.0\StorageOperation.Aws.csproj.CoreCompileInputs.cache

@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.S3.IO;
 using Amazon.S3.Model;
 using StorageOperation.Entities;
 using StorageOperation.Interfaces;
@@ -98,6 +99,8 @@ namespace StorageOperation.Aws
                 { Directory_SearchOption = SearchOption.AllDirectories; }
 
                 List<FileData> Files = new List<FileData>();
+
+                
 
                 var S3_DirectoryInfo = new S3DirectoryInfo(this.mAws_Client, this.mBucketName, DirectoryPath);
                 Files =

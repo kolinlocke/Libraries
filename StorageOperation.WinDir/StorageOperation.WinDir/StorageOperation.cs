@@ -23,7 +23,7 @@ namespace StorageOperation.WinDir
 
         public List<FileData> Get_Files(string DirectoryPath, bool Is_Recursive = false)
         {
-            var Files = Directory.GetFiles(DirectoryPath);
+            var Files = Directory.GetFiles(DirectoryPath, "*", Is_Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
             List<FileData> Fds =
                 Files.Select(O_File => new FileData(this.Get_File) { FileName = O_File }).ToList();
 
