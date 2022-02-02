@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.4.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Commons\Commons.EntityProps\Commons.EntityProps.csproj" />
     <ProjectReference Include="..\..\Commons\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\Data\DataFactory\DataFactory.csproj" />
     <ProjectReference Include="..\..\Data\DataInterfaces\DataInterfaces.csproj" />
   </ItemGroup>
 
