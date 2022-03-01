@@ -21,7 +21,7 @@ namespace Data.Oracle.Sample_DataFactory
         public override DataFactory.DataFactory.SetupParams Setup_Params()
         {
             SetupParams DataFactory_SetupParams = new SetupParams();
-            DataFactory_SetupParams.FactoryName = "DataFactory_Fits";
+            DataFactory_SetupParams.FactoryName = "DataFactory_Oracle";
             //DataFactory_SetupParams.AssemblyFilePath = ConfigurationManager.AppSettings["DataFactory_AssemblyFilePath"];
             DataFactory_SetupParams.AssemblySourceType = typeof(Data.Oracle.Implementations.Setup);
             DataFactory_SetupParams.ClassName_Setup = "Implementations.Setup";

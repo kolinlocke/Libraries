@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataQueries.Implementation
+namespace DataQueries.Oracle.Implementations
 {
     public class Setup : Data.Oracle.Implementations.Setup
     {

@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Commons.Serializers\Commons.Serializers.csproj" />
+    <ProjectReference Include="..\..\Commons\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\Emailer\Emailer\Emailer.csproj" />
+  </ItemGroup>
+
 </Project>

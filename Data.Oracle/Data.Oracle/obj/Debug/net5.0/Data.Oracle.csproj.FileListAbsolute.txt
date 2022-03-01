@@ -19,3 +19,5 @@ C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.cspro
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.dll
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\ref\Data.Oracle.dll
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.pdb
+C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\DataFactory.dll
+C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\DataFactory.pdb

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace FITS.Entities.Common.Common
+namespace Commons.EntityProps
 {
     [XmlRoot()]
     public class EntityConfig  {

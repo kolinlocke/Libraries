@@ -1,7 +1,6 @@
 ﻿using Data.Oracle.Common;
 using DataInterfaces.Common;
 using DataInterfaces.Interfaces;
-using DataQueries.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Web;
 using Commons.Serializers;
-using FITS.Entities.Common.Common;
 
 namespace Commons.EntityProps
 {
