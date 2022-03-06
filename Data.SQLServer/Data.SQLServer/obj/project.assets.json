@@ -380,6 +380,19 @@
         "runtime": {
           "bin/placeholder/Commons.Serializers.dll": {}
         }
+      },
+      "DataInterfaces/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Commons.EntityProps": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/DataInterfaces.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataInterfaces.dll": {}
+        }
       }
     }
   },
@@ -1144,12 +1157,18 @@
       "type": "project",
       "path": "../../Commons/Commons.Serializers/Commons.Serializers.csproj",
       "msbuildProject": "../../Commons/Commons.Serializers/Commons.Serializers.csproj"
+    },
+    "DataInterfaces/1.0.0": {
+      "type": "project",
+      "path": "../../Data/DataInterfaces/DataInterfaces.csproj",
+      "msbuildProject": "../../Data/DataInterfaces/DataInterfaces.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "Commons >= 1.0.0",
       "Commons.EntityProps >= 1.0.0",
+      "DataInterfaces >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
@@ -1193,6 +1212,9 @@
             },
             "C:\\Projects\\Libraries\\Commons\\Commons\\Commons.csproj": {
               "projectPath": "C:\\Projects\\Libraries\\Commons\\Commons\\Commons.csproj"
+            },
+            "C:\\Projects\\Libraries\\Data\\DataInterfaces\\DataInterfaces.csproj": {
+              "projectPath": "C:\\Projects\\Libraries\\Data\\DataInterfaces\\DataInterfaces.csproj"
             }
           }
         }

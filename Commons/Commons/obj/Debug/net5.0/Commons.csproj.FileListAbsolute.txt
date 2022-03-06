@@ -9,4 +9,3 @@ C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.csproj.CoreCompil
 C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.dll
 C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\ref\Commons.dll
 C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.pdb
-C:\Projects\Libraries\Commons\Commons\obj\Debug\net5.0\Commons.csproj.AssemblyReference.cache

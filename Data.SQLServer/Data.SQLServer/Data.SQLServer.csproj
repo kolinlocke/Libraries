@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Commons\Commons.EntityProps\Commons.EntityProps.csproj" />
     <ProjectReference Include="..\..\Commons\Commons\Commons.csproj" />
+    <ProjectReference Include="..\..\Data\DataInterfaces\DataInterfaces.csproj" />
   </ItemGroup>
 
 </Project>
