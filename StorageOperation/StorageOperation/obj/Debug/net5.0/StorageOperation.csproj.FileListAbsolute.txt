@@ -9,3 +9,4 @@ C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\Storage
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.dll
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\ref\StorageOperation.dll
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.pdb
+C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.csproj.AssemblyReference.cache

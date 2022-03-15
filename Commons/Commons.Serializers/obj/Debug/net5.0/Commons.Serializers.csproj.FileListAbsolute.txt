@@ -9,3 +9,4 @@ C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Seria
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.dll
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\ref\Commons.Serializers.dll
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.pdb
+C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.csproj.AssemblyReference.cache

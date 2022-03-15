@@ -48,7 +48,7 @@ namespace StorageOperation.Sftp
         {
             this.mTempPath = TempPath;
         }
-        
+
         public GetFileResult Get_File(string FilePath)
         {
             GetFileResult Result = new GetFileResult();
@@ -95,7 +95,24 @@ namespace StorageOperation.Sftp
                     Files =
                         SftpFiles
                         .Where(O_Sf => !ForSkip.Contains(O_Sf.Name))
-                        .Select(O_Sf => new FileData(this.Get_File) { FileName = O_Sf.FullName })
+                        .Select(O_Sf =>
+                            {
+                                Boolean Is_Directory = false;
+                                String FileName = Path.GetFileName(O_Sf.FullName);
+
+                                if (O_Sf.IsDirectory)
+                                {
+                                    Is_Directory = true;
+                                    FileName = $"[{ FileName }]";
+                                }
+
+                                return
+                                    new FileData(this.Get_File)
+                                    {
+                                        Is_Directory = Is_Directory,
+                                        FileName = FileName
+                                    };
+                            })
                         .ToList();
 
                     return Files;

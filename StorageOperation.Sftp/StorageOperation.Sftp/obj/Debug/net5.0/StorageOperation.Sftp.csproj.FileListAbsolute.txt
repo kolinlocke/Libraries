@@ -1,0 +1,15 @@
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\StorageOperation.Sftp.deps.json
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\StorageOperation.Sftp.dll
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\ref\StorageOperation.Sftp.dll
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\StorageOperation.Sftp.pdb
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\StorageOperation.dll
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\bin\Debug\net5.0\StorageOperation.pdb
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.csproj.AssemblyReference.cache
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.AssemblyInfoInputs.cache
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.AssemblyInfo.cs
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.csproj.CoreCompileInputs.cache
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.csproj.CopyComplete
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.dll
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\ref\StorageOperation.Sftp.dll
+C:\Projects\Libraries\StorageOperation.Sftp\StorageOperation.Sftp\obj\Debug\net5.0\StorageOperation.Sftp.pdb

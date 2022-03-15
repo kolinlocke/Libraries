@@ -16,6 +16,8 @@ namespace StorageOperation.Entities
             this.mFunc_GetFile = Func_GetFile;
         }
 
+        public Boolean Is_Directory { get; set; }
+
         public String FileName { get; set; }
 
         Exception mEx;
