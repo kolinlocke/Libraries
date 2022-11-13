@@ -85,7 +85,7 @@ namespace Data.SQLServer.Common
             public Boolean Is_Identity { get; set; }
         }
 
-        internal readonly Dictionary<SqlDbType, Type> equivalentSystemType = new Dictionary<SqlDbType, Type>
+        readonly Dictionary<SqlDbType, Type> equivalentSystemType = new Dictionary<SqlDbType, Type>
         {
             { SqlDbType.BigInt, typeof(long)},
             { SqlDbType.Binary, typeof(byte[]) },
@@ -221,7 +221,7 @@ namespace Data.SQLServer.Common
                    {
                        ParameterName = O.Name,
                        Value = O.Value,
-                       SqlDbType = OracleDBHelper.ConvertTypeToOracleType(O.Type)
+                       SqlDbType = SqlHelper.GetDbType(O.Type) //OracleDBHelper.ConvertTypeToOracleType(O.Type)
                    }).ToList();
 
             return PrepareQuery(Query, OracleParams, Cn, Type);
@@ -317,7 +317,7 @@ namespace Data.SQLServer.Common
 
         public List<T_Entity> ExecuteQuery<T_Entity>(
             String Query
-            , QueryParameters Params
+            , QueryParameters Params = null
             , CommandType Type = CommandType.Text
             , SqlConnection Cn = null)
         where T_Entity : class, new()
@@ -366,12 +366,6 @@ namespace Data.SQLServer.Common
 
         public List<T> ExecuteQuery<T>(SqlCommand Cmd) where T : class, new()
         {
-            /*
-            var Dt_Data = ExecuteQuery(Cmd);
-            var T_Data = DBMappingHelper.CreateListFromDataTable<T>(Dt_Data);
-            //return T_Data;
-            */
-
             var Reader = Cmd.ExecuteReader(CommandBehavior.CloseConnection);
             var Schema = Reader.GetSchemaTable();
 
@@ -385,7 +379,6 @@ namespace Data.SQLServer.Common
                 {
                     String ColumnName = CommonMethods.Convert_String(Row["ColumnName"]);
                     Int32 ColumnOrdinal = CommonMethods.Convert_Int32(Row["ColumnOrdinal"]);
-                    //T_Data.SetPropertyValue(ColumnName, Reader[ColumnOrdinal]);
                     T_Data.Set_EntityValue(ColumnName, Reader[ColumnOrdinal]);
                 }
             }
@@ -470,7 +463,6 @@ namespace Data.SQLServer.Common
         /// </summary>
         public static event Ds_SaveData_ExecuteSaveDataRow_Handler Ev_SaveData_ExecuteSaveDataRow;
 
-
         public Boolean SaveData(
           eSaveData_Process ProcessType
           , DataTable Data
@@ -479,7 +471,7 @@ namespace Data.SQLServer.Common
           , EntityKeys Keys = null)
         {
             if (!Check_TableExists(TableName, Cn))
-            { throw new Exception($"SQL Table {TableName} doesn't exist"); }
+            { throw new Exception($"Database Table {TableName} doesn't exist"); }
 
             Boolean Is_Cn = Cn != null;
 
@@ -591,7 +583,7 @@ namespace Data.SQLServer.Common
             foreach (var Item_Def in TableDef.ToList().Where(O => (!O.Is_PK || (O.Is_PK && !O.Is_Identity)) && Entity_Fields.Contains(O.FieldName)))
             {
                 //String ParamName = String.Format(":P_{0}", Item_Def.FieldName.Replace(" ", "_"));
-                String ParamName = String.Format("@P_{0}", Item_Def.FieldCt);
+                String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format("@P_{0}", Item_Def.FieldCt);
 
                 Query_Insert_Fields.Add(Item_Def.FieldName);
                 Query_Insert_Field_Params.Add(ParamName);
@@ -607,13 +599,18 @@ namespace Data.SQLServer.Common
             List<String> Query_Returning_Params = new List<String>();
 
             //Process PK Fields for output
+            StringBuilder Query_Output_Fields = new StringBuilder();
+            String Query_Output_Fields_Comma = "";
+
             foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK && O.Is_Identity))
             {
                 //String ParamName = String.Format(":P_{0}", Item_Def.FieldName.Replace(" ", "_"));
-                String ParamName = String.Format("@P_{0}", Item_Def.FieldCt);
+                String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format("@P_{0}", Item_Def.FieldCt);
 
                 Query_Returning_Fields.Add(Item_Def.FieldName);
                 Query_Returning_Params.Add(ParamName);
+
+                Query_Output_Fields.Append($@" {Query_Output_Fields_Comma} Inserted.[{Item_Def.FieldName}] ");
 
                 SqlParameter Param = new SqlParameter();
                 Param.ParameterName = ParamName;
@@ -625,14 +622,25 @@ namespace Data.SQLServer.Common
             //TO DO:
             //Recode this part for SQL Server Syntax
 
+            String Query_Output = "";
+            if (Query_Returning_Fields.Any())
+            {
+                Query_Output = $@"Output {Query_Output_Fields.ToString()}";
+            }
+
             String Query =
-@"
-Insert Into " + TableName + @"
-(" + String.Join(" , ", Query_Insert_Fields) + @")
+$@"
+Insert Into {TableName}
+    ({String.Join(" , ", Query_Insert_Fields)})
+
+{Query_Output}    
+
 Values
-(" + String.Join(" , ", Query_Insert_Field_Params) + @")
+    ({String.Join(" , ", Query_Insert_Field_Params)})
 ";
 
+
+            /*
             String Query_Returning = "";
             if (Query_Returning_Fields.Any())
             {
@@ -646,6 +654,7 @@ Into
             }
 
             Query = Query + Query_Returning;
+            */
 
             Returned.Cmd = this.PrepareQuery(Query, Params, Cn);
             Returned.Insert_Params.Query_Insert_Params = Query_Insert_Field_Params;
@@ -654,12 +663,456 @@ Into
             return Returned;
         }
 
+        Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Update(
+          Prepare_SaveDataRow_Returned Returned
+          , List<String> Entity_Fields
+          , SqlConnection Cn = null)
+        {
+            String TableName = Returned.TableName;
+            TableDef TableDef = Returned.TableDef;
+
+            List<SqlParameter> Params = new List<SqlParameter>();
+            List<String> Query_Update_Fields = new List<String>();
+            List<String> Query_Update_Field_Params = new List<String>();
+            List<String> Query_Update_Where = new List<String>();
+            List<String> Query_Update_Where_Params = new List<String>();
+
+            //Add all non PK fields to Params
+            foreach (var Item_Def in TableDef.ToList().Where(O => !O.Is_PK && Entity_Fields.Contains(O.FieldName)))
+            {
+                //String ParamName = String.Format(":P_{0}", Item_Def.FieldName.Replace(" ", "_"));
+                //String ParamName = String.Format("@P_{0}", Item_Def.FieldCt);
+                String ParamName = $"@P_{Item_Def.FieldCt}";
+
+                String Query_Update_Field = $" {Item_Def.FieldName} = {ParamName} "; //String.Format(" {0} = {1} ", Item_Def.FieldName, ParamName);
+
+                Query_Update_Fields.Add(Query_Update_Field);
+                Query_Update_Field_Params.Add(ParamName);
+
+                SqlParameter Param = new SqlParameter();
+                Param.ParameterName = ParamName;
+                Param.SqlDbType = Item_Def.SqlDbType;
+                Param.Direction = ParameterDirection.Input;
+                Params.Add(Param);
+            }
+
+            //Process PK Fields for Where Clause
+            foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
+            {
+                //String ParamName = String.Format(":P_{0}", Item_Def.FieldName.Replace(" ", "_"));
+                String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format("@P_{0}", Item_Def.FieldCt);
+                String Query_Where = $" {Item_Def.FieldName} = {ParamName} "; //String.Format(" {0} = {1} ", Item_Def.FieldName, ParamName);
+
+                Query_Update_Where.Add(Query_Where);
+                Query_Update_Where_Params.Add(ParamName);
+
+                //OracleParameter Param = new OracleParameter();
+                SqlParameter Param = new SqlParameter();
+                Param.ParameterName = ParamName;
+                Param.SqlDbType = Item_Def.SqlDbType;
+                Param.Direction = ParameterDirection.Input;
+                Params.Add(Param);
+            }
+
+            String Query =
+$@"
+Update {TableName }
+Set
+{String.Join(" , ", Query_Update_Fields)}
+Where
+{String.Join(" And ", Query_Update_Where)}
+";
+
+            Returned.Cmd = PrepareQuery(Query, Params, Cn);
+            Returned.Update_Params.Query_Update_Params = Query_Update_Field_Params;
+            Returned.Update_Params.Query_Update_Where_Params = Query_Update_Where_Params;
+
+            return Returned;
+        }
+
+        Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Delete(Prepare_SaveDataRow_Returned Returned, SqlConnection Cn = null)
+        {
+            String TableName = Returned.TableName;
+            TableDef TableDef = Returned.TableDef;
+
+            List<SqlParameter> Params = new List<SqlParameter>();
+            List<String> Query_Update_Where = new List<String>();
+            List<String> Query_Delete_Where_Params = new List<String>();
+
+            //Process PK Fields for Where Clause
+            foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
+            {
+                //String ParamName = String.Format(":P_{0}", Item_Def.FieldName.Replace(" ", "_"));
+                String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format(":P_{0}", Item_Def.FieldCt);
+                String Query_Where = $" {Item_Def.FieldName} = {ParamName} "; //String.Format(" {0} = {1} ", Item_Def.FieldName, ParamName);
+
+                Query_Update_Where.Add(Query_Where);
+                Query_Delete_Where_Params.Add(ParamName);
+
+                SqlParameter Param = new SqlParameter();
+                Param.ParameterName = ParamName;
+                Param.SqlDbType = Item_Def.SqlDbType;
+                Param.Direction = ParameterDirection.Input;
+                Params.Add(Param);
+            }
+
+            String Query =
+$@"
+Delete From {TableName}
+Where {String.Join(" And ", Query_Update_Where)}
+";
+
+            Returned.Cmd = PrepareQuery(Query, Params, Cn);
+            Returned.Delete_Params.Query_Delete_Where_Params = Query_Delete_Where_Params;
+
+            return Returned;
+        }
+
+        void Execute_SaveDataRow(eSaveDataRow_Process SaveDataRow_Process, Prepare_SaveDataRow_Returned Prepared, DataRow Data)
+        {
+            //Execute Prepared Query
+            String TableName = Prepared.TableName;
+            TableDef TableDef = Prepared.TableDef;
+            SqlCommand Cmd = Prepared.Cmd;
+
+            List<TableDef_Fields> List_TableDef = new List<TableDef_Fields>();
+
+            switch (SaveDataRow_Process)
+            {
+                case eSaveDataRow_Process.Process_Insert:
+                case eSaveDataRow_Process.Process_Update:
+                    {
+                        List_TableDef = TableDef.ToList();
+                        break;
+                    }
+                case eSaveDataRow_Process.Process_Delete:
+                    {
+                        List_TableDef = TableDef.Where(O => O.Is_PK).ToList();
+                        break;
+                    }
+            }
+
+            foreach (var Item_Def in List_TableDef)
+            {
+                if (Data.Table.Columns.Contains(Item_Def.FieldName))
+                {
+                    String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format("@P_{0}", Item_Def.FieldCt);
+                    Cmd.Parameters[ParamName].Value = Data[Item_Def.FieldName];
+                }
+            }
+
+            Cmd.ExecuteNonQuery();
+
+            if (SaveDataRow_Process == eSaveDataRow_Process.Process_Insert)
+            {
+                //Retrieve Output for PK
+                Dictionary<String, Object> PK_Output = new Dictionary<String, Object>();
+                foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
+                {
+                    String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format(":P_{0}", Item_Def.FieldCt);
+                    PK_Output.Add(Item_Def.FieldName, Cmd.Parameters[ParamName].Value);
+
+                    Data[Item_Def.FieldName] = ConvertValue(Item_Def.SqlDbType, Item_Def.Is_Nullable, Cmd.Parameters[ParamName].Value);
+                }
+            }
+        }
+
+        public void DeleteData(DataTable Data, String TableName, SqlConnection Cn = null)
+        {
+            //Prevent unwanted table purges with this!
+            if (Data.Rows.Count == 0)
+            { return; }
+
+            Boolean Is_Cn = Cn != null;
+
+            var Prepared = Prepare_SaveDataRow(eSaveDataRow_Process.Process_Delete, TableName, Data, Cn);
+
+            Int32 RowCt = 0;
+            foreach (DataRow Item_DataRow in Data.Rows)
+            {
+                Execute_SaveDataRow(eSaveDataRow_Process.Process_Delete, Prepared, Item_DataRow);
+                RowCt++;
+                if (Ev_SaveData_ExecuteSaveDataRow != null)
+                { Ev_SaveData_ExecuteSaveDataRow(RowCt, Data.Rows.Count); }
+            }
+
+            //If Connection is not supplied, close the connection in the command obj
+            if (!Is_Cn)
+            { Prepared.Cmd.Connection.Close(); }
+        }
+
+        #endregion
+
+        #region _Methods.SaveData<T>
+
+        public Boolean SaveData<T>(
+            eSaveData_Process ProcessType
+            , ref IList<T> Data
+            , String TableName = ""
+            , SqlConnection Cn = null
+            , EntityKeys Keys = null)
+        where T : class, new()
+        {
+            if (String.IsNullOrEmpty(TableName))
+            { TableName = typeof(T).Name; }
+
+            if (!Check_TableExists(TableName, Cn))
+            { throw new Exception($"Oracle Table {TableName} doesn't exist"); }
+
+            Boolean Is_Cn = Cn != null;
+
+            eSaveDataRow_Process SaveDataRowProcessType = eSaveDataRow_Process.Process_Insert;
+            switch (ProcessType)
+            {
+                case eSaveData_Process.Process_Insert:
+                    SaveDataRowProcessType = eSaveDataRow_Process.Process_Insert;
+                    break;
+                case eSaveData_Process.Process_Update:
+                    SaveDataRowProcessType = eSaveDataRow_Process.Process_Update;
+                    break;
+            }
+
+            var Prepared =
+               Prepare_SaveDataRow<T>(
+                   SaveDataRowProcessType
+                   , TableName
+                   , Cn
+                   , Keys);
+
+            Int32 RowCt = 0;
+            foreach (var Item_Data in Data)
+            {
+                Execute_SaveDataRow(SaveDataRowProcessType, Prepared, Item_Data);
+                RowCt++;
+                if (Ev_SaveData_ExecuteSaveDataRow != null)
+                { Ev_SaveData_ExecuteSaveDataRow(RowCt, Data.Count); }
+            }
+
+            //If Connection is not supplied, close the connection in the command obj
+            if (!Is_Cn)
+            { Prepared.Cmd.Connection.Close(); }
+
+            return true;
+        }
+
+        public Boolean SaveData<T>(
+          eSaveData_Process ProcessType
+          , ref T Data
+          , String TableName = ""
+          , SqlConnection Cn = null
+          , EntityKeys Keys = null)
+        where T : class, new()
+        {
+            if (String.IsNullOrEmpty(TableName))
+            { TableName = typeof(T).Name; }
+
+            if (!Check_TableExists(TableName, Cn))
+            { throw new Exception($"Database Table {TableName} doesn't exist"); }
+
+            IList<T> ListData = new List<T>();
+            ListData.Add(Data);
+
+            Boolean SaveData_Result =
+                SaveData(
+                    ProcessType
+                    , ref ListData
+                    , TableName
+                    , Cn
+                    , Keys);
+
+            Data = ListData.First();
+
+            return SaveData_Result;
+        }
+
+        Prepare_SaveDataRow_Returned Prepare_SaveDataRow<T>(
+            eSaveDataRow_Process SaveDataRow_Process
+            , String TableName
+            , SqlConnection Cn = null
+            , EntityKeys Keys = null)
+        {
+            Prepare_SaveDataRow_Returned Returned =
+               new Prepare_SaveDataRow_Returned() { Cmd = null, Result = false };
+
+            //Get Table Column Definition
+            TableDef TableDef = Get_TableDef(TableName, Cn);
+
+            //If Param Keys is present, replace the keys in TableDef
+            if (Keys != null)
+            {
+                TableDef.ForEach(O =>
+                {
+                    O.Is_PK = false;
+                    var Key = Keys.FirstOrDefault(O_Key => O_Key.Name == O.FieldName);
+                    if (Key != null)
+                    {
+                        O.Is_PK = true;
+                        O.Is_Identity = Key.Is_Identity;
+                    }
+                });
+            }
+
+            Returned.TableName = TableName;
+            Returned.TableDef = TableDef;
+
+            //List<String> Entity_Fields = typeof(T).GetProperties().Select(O => O.Name).ToList();
+
+            List<String> Entity_Fields = EntityHelper.Get_EntityFields<T>().Select(O => O.FieldName).ToList();
+
+            switch (SaveDataRow_Process)
+            {
+                case eSaveDataRow_Process.Process_Insert:
+                    {
+                        Returned = Prepare_SaveDataRow_Insert(Returned, Entity_Fields, Cn);
+                        break;
+                    }
+                case eSaveDataRow_Process.Process_Update:
+                    {
+                        Returned = Prepare_SaveDataRow_Update(Returned, Entity_Fields, Cn);
+                        break;
+                    }
+                case eSaveDataRow_Process.Process_Delete:
+                    {
+                        Returned = Prepare_SaveDataRow_Delete(Returned, Cn);
+                        break;
+                    }
+            }
+
+            return Returned;
+        }
+
+        void Execute_SaveDataRow<T>(eSaveDataRow_Process SaveDataRow_Process, Prepare_SaveDataRow_Returned Prepared, T Data)
+            where T : class
+        {
+            //Execute Prepared Query
+            String TableName = Prepared.TableName;
+            TableDef TableDef = Prepared.TableDef;
+            SqlCommand Cmd = Prepared.Cmd;
+
+            List<TableDef_Fields> List_TableDef = new List<TableDef_Fields>();
+
+            switch (SaveDataRow_Process)
+            {
+                case eSaveDataRow_Process.Process_Insert:
+                case eSaveDataRow_Process.Process_Update:
+                    {
+                        List_TableDef = TableDef.ToList();
+                        break;
+                    }
+                case eSaveDataRow_Process.Process_Delete:
+                    {
+                        List_TableDef = TableDef.Where(O => O.Is_PK).ToList();
+                        break;
+                    }
+            }
+
+            foreach (var Item_Def in List_TableDef)
+            {
+                //if (Data.HasProperty(Item_Def.FieldName))
+                if (Data.Has_EntityField(Item_Def.FieldName))
+                {
+                    String ParamName = $"@P_{Item_Def.FieldCt}";  //String.Format("@P_{0}", Item_Def.FieldCt);
+                    //Cmd.Parameters[ParamName].Value = Data.GetPropertyValue(Item_Def.FieldName);
+                    Cmd.Parameters[ParamName].Value = Data.Get_EntityValue(Item_Def.FieldName);
+                }
+            }
+
+            Cmd.ExecuteNonQuery();
+
+            if (SaveDataRow_Process == eSaveDataRow_Process.Process_Insert)
+            {
+                //Retrieve Output for PK
+                Dictionary<String, Object> PK_Output = new Dictionary<String, Object>();
+                foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
+                {
+                    String ParamName = $"@P_{Item_Def.FieldCt}"; //String.Format("@P_{0}", Item_Def.FieldCt);
+                    PK_Output.Add(Item_Def.FieldName, Cmd.Parameters[ParamName].Value);
+                    //Data.SetPropertyValue(Item_Def.FieldName, ConvertValue(Item_Def.DbType, Item_Def.Is_Nullable, Cmd.Parameters[ParamName].Value));
+                    Data.Set_EntityValue(Item_Def.FieldName, ConvertValue(Item_Def.SqlDbType, Item_Def.Is_Nullable, Cmd.Parameters[ParamName].Value));
+                }
+            }
+        }
+
+        public void DeleteData<T>(
+            T Data
+            , String TableName = ""
+            , SqlConnection Cn = null)
+        where T : class, new()
+        {
+            if (String.IsNullOrEmpty(TableName))
+            { TableName = typeof(T).Name; }
+
+            IList<T> ListData = new List<T>();
+            ListData.Add(Data);
+
+            DeleteData(ListData, TableName, Cn);
+        }
+
+        public void DeleteData<T>(
+            IList<T> Data
+            , String TableName = ""
+            , SqlConnection Cn = null) 
+        where T : class, new()
+        {
+            if (String.IsNullOrEmpty(TableName))
+            { TableName = typeof(T).Name; }
+
+            var Converted_Data = DatabaseMapping.ConvertToDataTable(Data);
+            DeleteData(Converted_Data, TableName, Cn);
+        }
 
         #endregion
 
         #region _Methods.Various
 
-        public Boolean Check_TableExists(String TableName, SqlConnection Cn = null)
+        //Code Source: https://stackoverflow.com/questions/35745226/net-system-type-to-sqldbtype
+        static class SqlHelper
+        {
+            private static Dictionary<Type, SqlDbType> typeMap;
+
+            // Create and populate the dictionary in the static constructor
+            static SqlHelper()
+            {
+                typeMap = new Dictionary<Type, SqlDbType>();
+
+                typeMap[typeof(string)] = SqlDbType.NVarChar;
+                typeMap[typeof(char[])] = SqlDbType.NVarChar;
+                typeMap[typeof(byte)] = SqlDbType.TinyInt;
+                typeMap[typeof(short)] = SqlDbType.SmallInt;
+                typeMap[typeof(int)] = SqlDbType.Int;
+                typeMap[typeof(long)] = SqlDbType.BigInt;
+                typeMap[typeof(byte[])] = SqlDbType.Image;
+                typeMap[typeof(bool)] = SqlDbType.Bit;
+                typeMap[typeof(DateTime)] = SqlDbType.DateTime2;
+                typeMap[typeof(DateTimeOffset)] = SqlDbType.DateTimeOffset;
+                typeMap[typeof(decimal)] = SqlDbType.Money;
+                typeMap[typeof(float)] = SqlDbType.Real;
+                typeMap[typeof(double)] = SqlDbType.Float;
+                typeMap[typeof(TimeSpan)] = SqlDbType.Time;
+            }
+
+            // Non-generic argument-based method
+            public static SqlDbType GetDbType(Type giveType)
+            {
+                // Allow nullable types to be handled
+                giveType = Nullable.GetUnderlyingType(giveType) ?? giveType;
+
+                if (typeMap.ContainsKey(giveType))
+                {
+                    return typeMap[giveType];
+                }
+
+                throw new ArgumentException($"{giveType.FullName} is not a supported .NET class");
+            }
+
+            // Generic version
+            public static SqlDbType GetDbType<T>()
+            {
+                return GetDbType(typeof(T));
+            }
+        }
+
+        Boolean Check_TableExists(String TableName, SqlConnection Cn = null)
         {
             String Query =
 @"
@@ -678,7 +1131,7 @@ Where Name = @P_TableName
             { return false; }
         }
 
-        public TableDef Get_TableDef(String TableName, SqlConnection Cn = null)
+        TableDef Get_TableDef(String TableName, SqlConnection Cn = null)
         {
             String Query =
 @"
@@ -758,7 +1211,7 @@ Group By
             return Def;
         }
 
-        public Type ConvertSqlType(String SqlType, Boolean Is_Nullable)
+        Type ConvertSqlType(String SqlType, Boolean Is_Nullable)
         {
             var SqlDbType = CommonMethods.ParseEnum<SqlDbType>(SqlType);
             var DataType = this.equivalentSystemType[SqlDbType];
@@ -766,12 +1219,33 @@ Group By
             return DataType;
         }
 
-        public SqlDbType GetSqlDbType(Type DataType)
+        Type ConvertSqlType(SqlDbType SqlType, Boolean Is_Nullable)
         {
-            var Ret_SqlDbType = this.equivalentSystemType.FirstOrDefault(O => O.Value == DataType).Key;
+            var SqlDbType = SqlType;
+            var DataType = this.equivalentSystemType[SqlDbType];
+
+            return DataType;
+        }
+
+        SqlDbType GetSqlDbType(Type DataType)
+        {
+            var Ret_SqlDbType = equivalentSystemType.FirstOrDefault(O => O.Value == DataType).Key;
 
             return Ret_SqlDbType;
         }
+
+        Object ConvertValue(String SqlType, Boolean IsNullable, Object Value)
+        {
+            Type DataType = ConvertSqlType(SqlType, IsNullable);
+            return CommonMethods.Convert_Value(DataType, Value);
+        }
+
+        Object ConvertValue(SqlDbType SqlType, Boolean IsNullable, Object Value)
+        {
+            Type DataType = ConvertSqlType(SqlType, IsNullable);
+            return CommonMethods.Convert_Value(DataType, Value);
+        }
+
 
         #endregion
     }
