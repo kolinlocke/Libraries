@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StorageOperation.Interfaces
 {
-    public interface Interface_StorageOperation
+    public interface Interface_StorageOperation : IDisposable
     {        
         void Setup_ConnectionData(String ConnectionData);
         void Setup_TempPath(String TempPath);

@@ -32,7 +32,7 @@ namespace Data.SQLServer.Implementations
 $@"
 Select Tb.* 
 From 
-    ({(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)}) Tb
+    {(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)} Tb
 Where
     1 = 1
     {Query_Key}
@@ -60,7 +60,7 @@ Where
 $@"
 Select Tb.* 
 From 
-    ({(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)}) Tb
+    {(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)} Tb
 Where
     1 = 1
     {Query_Key}
@@ -96,7 +96,7 @@ Where
 $@"
 Select Tb.* 
 From 
-    ({(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)}) Tb
+    {(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)} Tb
 ";
 
             //var QueryResult = OracleDBHelper.ExecuteQuery<T_Entity>(Query);
@@ -279,7 +279,7 @@ From
             Query = $@"
 Select {Query_GetOne} Tb.* 
 From 
-    ({(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)}) Tb
+    {(String.IsNullOrEmpty(QueryName) ? EntityName : QueryName)} Tb
 Where
     1 = 1    
     {Query_Keys}

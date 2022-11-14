@@ -30,7 +30,7 @@ namespace Data.SQLServer.Implementations
                 .ToDictionary(O => O[0], O => O[1]);
 
             String Server = Data["Server"];
-            Int32 Port = CommonMethods.Convert_Int32(Data["Port"]);
+            //Int32 Port = CommonMethods.Convert_Int32(Data["Port"]);
             String Database = Data["Database"];
             String UserID = Data["UserID"];
             String Password = Data["Password"];
@@ -38,7 +38,6 @@ namespace Data.SQLServer.Implementations
             this.pCn =
                 new SQLServerManager(
                     Server
-                    , Port
                     , Database
                     , UserID
                     , Password);

@@ -461,9 +461,32 @@ namespace Commons
         public static T ParseEnum<T>(Object Value, T DefaultValue)
             where T : struct, IComparable, IFormattable
         {
-            if (Enum.IsDefined(typeof(T), Value))
-            { return (T)Enum.Parse(typeof(T), Value.ToString(), true); }
-            return DefaultValue;
+            //if (Enum.IsDefined(typeof(T), Value))
+            //{ return (T)Enum.Parse(typeof(T), Value.ToString(), true); }
+            //return DefaultValue;
+
+
+            //var Parsed = (T)Enum.Parse(typeof(T), Value.ToString(), true);
+            //if (!Object.Equals(Parsed, DefaultValue))
+            //{ return Parsed; }
+            //else
+            //{ return DefaultValue; }
+
+            Object Parsed = null;
+            if (Enum.TryParse(typeof(T), Value.ToString(), true, out Parsed))
+            { return (T)Parsed; }
+            else
+            { return DefaultValue; }
+        }
+
+        public static object GetDefault(Type t)
+        {
+            return typeof(CommonMethods).GetMethod("GetDefaultGeneric").MakeGenericMethod(t).Invoke(null, null);
+        }
+
+        public static T GetDefaultGeneric<T>()
+        {
+            return default(T);
         }
 
         public static Object Convert_Value(Type Type, Object Value)
@@ -474,6 +497,18 @@ namespace Commons
                     .MakeGenericMethod(Type);
 
             Object Returned = Method.Invoke(null, new Object[] { Value });
+
+            return Returned;
+        }
+
+        public static Object Convert_Value(Type Type, Object Value, Object DefaultValue)
+        {
+            MethodInfo Method =
+                typeof(CommonMethods)
+                    .GetMethod("Convert_Value", new Type[] { typeof(Object), typeof(Object) })
+                    .MakeGenericMethod(Type);
+
+            Object Returned = Method.Invoke(null, new Object[] { Value, DefaultValue });
 
             return Returned;
         }
@@ -524,8 +559,12 @@ namespace Commons
             { Dynamic_DefaultValue = false; }
             else if (typeof(T) == typeof(String))
             { Dynamic_DefaultValue = String.Empty; }
+            else if (typeof(T) == typeof(Guid))
+            { Dynamic_DefaultValue = Guid.Empty; }
             else
-            { return (T)Value; }
+            {
+                Dynamic_DefaultValue = default(T);
+            }
 
             return Convert_Value<T>(Value, Dynamic_DefaultValue);
         }
@@ -577,8 +616,16 @@ namespace Commons
                 dynamic Dynamic_DefaultValue = DefaultValue;
                 Pr = new Str_ParseResult() { IsParsed = true, ParsedValue = Convert_String(Value, Dynamic_DefaultValue) };
             }
+            else if (typeof(T) == typeof(Guid))
+            {
+                Guid OutValue;
+                Pr.IsParsed = Guid.TryParse(ValueString, out OutValue);
+                Pr.ParsedValue = OutValue;
+            }
             else
-            { throw new Exception("Type is not included in the specified types."); }
+            {
+                throw new Exception("Type is not included in the specified types."); 
+            }
 
             if (Pr.IsParsed)
             { ReturnValue = (T)Pr.ParsedValue; }
@@ -779,6 +826,17 @@ namespace Commons
             { return false; }
 
             return false;
+        }
+
+        //Code Source: https://stackoverflow.com/questions/108104/how-do-i-convert-a-system-type-to-its-nullable-version
+        public static Type GetNullableType(Type type)
+        {
+            // Use Nullable.GetUnderlyingType() to remove the Nullable<T> wrapper if type is already nullable.
+            type = Nullable.GetUnderlyingType(type) ?? type; // avoid type becoming null
+            if (type.IsValueType)
+                return typeof(Nullable<>).MakeGenericType(type);
+            else
+                return type;
         }
 
         public static DateTime AppendDatePart(DateTime Source, DateTime ToAppend)

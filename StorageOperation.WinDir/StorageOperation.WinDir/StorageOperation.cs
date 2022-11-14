@@ -50,5 +50,7 @@ namespace StorageOperation.WinDir
         {
             File.Delete(TargetPath);
         }
+
+        public void Dispose() { }
     }
 }

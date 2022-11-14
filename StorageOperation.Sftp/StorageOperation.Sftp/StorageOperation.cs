@@ -23,11 +23,7 @@ namespace StorageOperation.Sftp
 
         ~StorageOperation()
         {
-            this.mOpenedFiles.ForEach(O_File =>
-            {
-                try { File.Delete(O_File); }
-                catch { }
-            });
+            this.Dispose();
         }
 
         public void Setup_ConnectionData(string ConnectionData)
@@ -149,11 +145,20 @@ namespace StorageOperation.Sftp
                     Client.Connect();
                     Client.DeleteFile(TargetPath);
                 }
-                catch (Exception Ex)
-                { throw Ex; }
+                catch (Exception)
+                { throw; }
                 finally
                 { Client.Disconnect(); }
             }
+        }
+
+        public void Dispose()
+        {
+            this.mOpenedFiles.ForEach(O_File =>
+            {
+                try { File.Delete(O_File); }
+                catch { }
+            });
         }
     }
 }
