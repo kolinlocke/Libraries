@@ -816,11 +816,11 @@ Where {String.Join(" And ", Query_Update_Where)}
                     {
                         if (Item_Def.Is_Nullable)
                         {
-                            Cmd.Parameters[ParamName].Value = CommonMethods.IsNull(Data.Get_EntityValue(Item_Def.FieldName), DBNull.Value); 
+                            Cmd.Parameters[ParamName].Value = CommonMethods.IsNull(Data[Item_Def.FieldName], DBNull.Value); 
                         }
                         else
                         {                            
-                            Cmd.Parameters[ParamName].Value = CommonMethods.Convert_Value(Item_Def.FieldType, Data.Get_EntityValue(Item_Def.FieldName));
+                            Cmd.Parameters[ParamName].Value = CommonMethods.Convert_Value(Item_Def.FieldType, Data[Item_Def.FieldName]);
                         }
                     }
                 }
