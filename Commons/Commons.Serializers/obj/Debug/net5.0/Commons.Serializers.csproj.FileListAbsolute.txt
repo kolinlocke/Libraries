@@ -1,6 +1,5 @@
 C:\Projects\Libraries\Commons\Commons.Serializers\bin\Debug\net5.0\Commons.Serializers.deps.json
 C:\Projects\Libraries\Commons\Commons.Serializers\bin\Debug\net5.0\Commons.Serializers.dll
-C:\Projects\Libraries\Commons\Commons.Serializers\bin\Debug\net5.0\ref\Commons.Serializers.dll
 C:\Projects\Libraries\Commons\Commons.Serializers\bin\Debug\net5.0\Commons.Serializers.pdb
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.GeneratedMSBuildEditorConfig.editorconfig
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.AssemblyInfoInputs.cache
@@ -10,3 +9,4 @@ C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Seria
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\ref\Commons.Serializers.dll
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.pdb
 C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\Commons.Serializers.csproj.AssemblyReference.cache
+C:\Projects\Libraries\Commons\Commons.Serializers\obj\Debug\net5.0\refint\Commons.Serializers.dll

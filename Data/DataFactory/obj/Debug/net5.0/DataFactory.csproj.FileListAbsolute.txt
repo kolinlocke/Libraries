@@ -1,6 +1,5 @@
 C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\DataFactory.deps.json
 C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\DataFactory.dll
-C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\ref\DataFactory.dll
 C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\DataFactory.pdb
 C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\Commons.dll
 C:\Projects\Libraries\Data\DataFactory\bin\Debug\net5.0\Commons.EntityProps.dll
@@ -17,5 +16,6 @@ C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\DataFactory.AssemblyInfo
 C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\DataFactory.csproj.CoreCompileInputs.cache
 C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\DataFactory.csproj.CopyComplete
 C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\DataFactory.dll
-C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\ref\DataFactory.dll
+C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\refint\DataFactory.dll
 C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\DataFactory.pdb
+C:\Projects\Libraries\Data\DataFactory\obj\Debug\net5.0\ref\DataFactory.dll

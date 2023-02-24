@@ -20,6 +20,8 @@ namespace StorageOperation.Entities
 
         public String FileName { get; set; }
 
+        public String FullName { get; set; }
+
         Exception mEx;
         public Exception Ex { get { return this.mEx; } }
 

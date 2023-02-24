@@ -1,6 +1,5 @@
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\Data.SQLServer.deps.json
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\Data.SQLServer.dll
-C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\ref\Data.SQLServer.dll
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\Data.SQLServer.pdb
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\Commons.dll
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\bin\Debug\net5.0\Commons.EntityProps.dll
@@ -17,5 +16,6 @@ C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\Data.SQLSer
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\Data.SQLServer.csproj.CoreCompileInputs.cache
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\Data.SQLServer.csproj.CopyComplete
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\Data.SQLServer.dll
-C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\ref\Data.SQLServer.dll
+C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\refint\Data.SQLServer.dll
 C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\Data.SQLServer.pdb
+C:\Projects\Libraries\Data.SQLServer\Data.SQLServer\obj\Debug\net5.0\ref\Data.SQLServer.dll

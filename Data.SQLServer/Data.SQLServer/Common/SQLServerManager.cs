@@ -136,6 +136,8 @@ namespace Data.SQLServer.Common
             Setup_DbTypeMap();
         }
 
+        public SQLServerManager() { }
+
         public SQLServerManager(
             String Server
             , Int32 Port
@@ -432,7 +434,8 @@ namespace Data.SQLServer.Common
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
-            Params.ForEach(O => Cmd.Parameters.Add(O));
+            if (Params != null)
+            { Params.ForEach(O => Cmd.Parameters.Add(O)); }
 
             var ExecuteResult = Cmd.ExecuteNonQuery();
 

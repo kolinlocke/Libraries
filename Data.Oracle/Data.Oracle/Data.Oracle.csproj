@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.5.0" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="21.7.0" />
   </ItemGroup>
 
   <ItemGroup>

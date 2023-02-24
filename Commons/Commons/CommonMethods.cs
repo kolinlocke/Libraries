@@ -472,8 +472,8 @@ namespace Commons
             //else
             //{ return DefaultValue; }
 
-            Object Parsed = null;
-            if (Enum.TryParse(typeof(T), Value.ToString(), true, out Parsed))
+            T Parsed = new T();
+            if (Enum.TryParse<T>(Value.ToString(), true, out Parsed))
             { return (T)Parsed; }
             else
             { return DefaultValue; }

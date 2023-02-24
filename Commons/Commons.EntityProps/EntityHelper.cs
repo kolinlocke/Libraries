@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Web;
 using Commons.Serializers;
 
 namespace Commons.EntityProps

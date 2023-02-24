@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Dy+1P4WMGwFNQNV0fdUJOnGrebpV2sotg5IbHZTsp0zeKFssQ3Br02ErjKAGTf7KBWnQXkL1+59fYCfD11fVVg==",
+  "dgSpecHash": "gWgQQEr44q5y5lhKniLC8C4AE+n1sAR1FFnamgGpku6IV1YBRTITQJGbLiMh5m2CORtXWI77Ebqcr1YL7mAxQA==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Libraries\\Commons\\Commons.Serializers\\Commons.Serializers.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\JANERDY\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

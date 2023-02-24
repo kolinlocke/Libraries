@@ -162,7 +162,9 @@ From
             var Entity = this.GetByID(ID);
             if (Entity != null)
             {
-                var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                //var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                var EntityConfig = EntityHelper.Get_EntityConfig<T_Entity>();
+                var EntityName = EntityConfig.EntityName;
                 this.mSetup.pCn.DeleteData(Entity, EntityName);
             }
         }
@@ -172,7 +174,9 @@ From
             var Entity = this.GetByID(ID);
             if (Entity != null)
             {
-                var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                //var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                var EntityConfig = EntityHelper.Get_EntityConfig<T_Entity>();
+                var EntityName = EntityConfig.EntityName;
                 this.mSetup.pCn.DeleteData(Entity, EntityName);
             }
         }
@@ -182,7 +186,9 @@ From
             var Entities = this.GetList(Keys);
             if (Entities != null)
             {
-                var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                //var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+                var EntityConfig = EntityHelper.Get_EntityConfig<T_Entity>();
+                var EntityName = EntityConfig.EntityName;
                 this.mSetup.pCn.DeleteData(Entities, EntityName);
             }
         }
@@ -194,7 +200,9 @@ From
           , T_Entity Entity
           , IList<String> Keys)
         {
-            var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+            //var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+            var EntityConfig = EntityHelper.Get_EntityConfig<T_Entity>();
+            var EntityName = EntityConfig.EntityName;
 
             EntityKeys EntityKeys = null;
             if (Keys != null)
@@ -215,7 +223,9 @@ From
           , IList<T_Entity> Entities
           , IList<String> Keys)
         {
-            var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+            //var EntityName = EntityHelper.Get_EntityName<T_Entity>();
+            var EntityConfig = EntityHelper.Get_EntityConfig<T_Entity>();
+            var EntityName = EntityConfig.EntityName;
 
             EntityKeys EntityKeys = null;
             if (Keys != null)

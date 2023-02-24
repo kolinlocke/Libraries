@@ -10,18 +10,16 @@
         "projectUniqueName": "C:\\Projects\\Libraries\\Commons\\Commons.EntityProps\\Commons.EntityProps.csproj",
         "projectName": "Commons.EntityProps",
         "projectPath": "C:\\Projects\\Libraries\\Commons\\Commons.EntityProps\\Commons.EntityProps.csproj",
-        "packagesPath": "C:\\Users\\JANERDY\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\P1003WPH1\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\Libraries\\Commons\\Commons.EntityProps\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JANERDY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\P1003WPH1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -64,7 +62,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -73,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -83,18 +82,16 @@
         "projectUniqueName": "C:\\Projects\\Libraries\\Commons\\Commons.Serializers\\Commons.Serializers.csproj",
         "projectName": "Commons.Serializers",
         "projectPath": "C:\\Projects\\Libraries\\Commons\\Commons.Serializers\\Commons.Serializers.csproj",
-        "packagesPath": "C:\\Users\\JANERDY\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\P1003WPH1\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\Libraries\\Commons\\Commons.Serializers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JANERDY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\P1003WPH1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -130,7 +127,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -139,7 +137,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -149,18 +147,16 @@
         "projectUniqueName": "C:\\Projects\\Libraries\\Commons\\Commons\\Commons.csproj",
         "projectName": "Commons",
         "projectPath": "C:\\Projects\\Libraries\\Commons\\Commons\\Commons.csproj",
-        "packagesPath": "C:\\Users\\JANERDY\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\P1003WPH1\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\Libraries\\Commons\\Commons\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JANERDY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\P1003WPH1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -196,7 +192,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -205,7 +202,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -215,18 +212,16 @@
         "projectUniqueName": "C:\\Projects\\Libraries\\Data.SQLServer\\Data.SQLServer\\Data.SQLServer.csproj",
         "projectName": "Data.SQLServer",
         "projectPath": "C:\\Projects\\Libraries\\Data.SQLServer\\Data.SQLServer\\Data.SQLServer.csproj",
-        "packagesPath": "C:\\Users\\JANERDY\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\P1003WPH1\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\Libraries\\Data.SQLServer\\Data.SQLServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JANERDY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\P1003WPH1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -272,7 +267,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -281,7 +277,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -291,18 +287,16 @@
         "projectUniqueName": "C:\\Projects\\Libraries\\Data\\DataInterfaces\\DataInterfaces.csproj",
         "projectName": "DataInterfaces",
         "projectPath": "C:\\Projects\\Libraries\\Data\\DataInterfaces\\DataInterfaces.csproj",
-        "packagesPath": "C:\\Users\\JANERDY\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\P1003WPH1\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\Libraries\\Data\\DataInterfaces\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JANERDY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\P1003WPH1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -336,7 +330,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -345,7 +340,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

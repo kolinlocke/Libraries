@@ -1,6 +1,5 @@
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\StorageOperation.WinDir.deps.json
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\StorageOperation.WinDir.dll
-C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\ref\StorageOperation.WinDir.dll
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\StorageOperation.WinDir.pdb
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\StorageOperation.dll
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\bin\Debug\net5.0\StorageOperation.pdb
@@ -13,3 +12,4 @@ C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\obj\Debug\
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\obj\Debug\net5.0\StorageOperation.WinDir.dll
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\obj\Debug\net5.0\ref\StorageOperation.WinDir.dll
 C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\obj\Debug\net5.0\StorageOperation.WinDir.pdb
+C:\Projects\Libraries\StorageOperation.WinDir\StorageOperation.WinDir\obj\Debug\net5.0\refint\StorageOperation.WinDir.dll

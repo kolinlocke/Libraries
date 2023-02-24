@@ -1,6 +1,5 @@
 C:\Projects\Libraries\StorageOperation\StorageOperation\bin\Debug\net5.0\StorageOperation.deps.json
 C:\Projects\Libraries\StorageOperation\StorageOperation\bin\Debug\net5.0\StorageOperation.dll
-C:\Projects\Libraries\StorageOperation\StorageOperation\bin\Debug\net5.0\ref\StorageOperation.dll
 C:\Projects\Libraries\StorageOperation\StorageOperation\bin\Debug\net5.0\StorageOperation.pdb
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.GeneratedMSBuildEditorConfig.editorconfig
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.AssemblyInfoInputs.cache
@@ -10,3 +9,4 @@ C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\Storage
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\ref\StorageOperation.dll
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.pdb
 C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\StorageOperation.csproj.AssemblyReference.cache
+C:\Projects\Libraries\StorageOperation\StorageOperation\obj\Debug\net5.0\refint\StorageOperation.dll
