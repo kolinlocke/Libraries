@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Data.OleDb;
 using System.ComponentModel;
+using System.Collections;
 
 namespace Commons
 {
@@ -146,8 +147,34 @@ namespace Commons
             { return null; }
             catch (Exception)
             { return null; }
+        }
 
+        public static DataTable ConvertToDataTable(Object Obj_List)
+        {
+            try
+            {
+                var GenericArgs = (Obj_List as IEnumerable).GetType().GetGenericArguments();
+                Type objType = GenericArgs.FirstOrDefault();
+                DataTable Table = CreateDataTable(objType);
+                PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(objType);
 
+                var Casted_List = (Obj_List as IEnumerable).Cast<Object>();
+                foreach (var item in Casted_List)
+                {
+                    DataRow row = Table.NewRow();
+                    foreach (PropertyDescriptor property in properties)
+                    {
+                        if (!CanUseType(property.PropertyType)) continue;
+                        row[property.Name] = property.GetValue(item) ?? DBNull.Value;
+                    }
+
+                    Table.Rows.Add(row);
+                }
+                return Table;
+
+            }
+            catch (Exception)
+            { return null; }
         }
 
         public static DataRow ConvertToDataRow<T>(T Object, DataTable Table = null) where T : class

@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "G4tbwxDDNC8kx0/rp3PCicW38lD4cjBKO6ARMN9s7XjbLrg9NsRmcmIiWIzn2bQZ2IW8QQr+R1BcWTRabYdW9g==",
+  "dgSpecHash": "MZuDVoVSQRbH+UMxz7jzD37pSBufNVX63jzdk8RcH+mMZwUBSQchdMHSuc6e0XmAgTv1bt1pusaQBlt87fUG3g==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Libraries\\StorageOperation.Aws\\StorageOperation.Aws\\StorageOperation.Aws.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\JANERDY\\.nuget\\packages\\awssdk.core\\3.7.5.8\\awssdk.core.3.7.5.8.nupkg.sha512",
-    "C:\\Users\\JANERDY\\.nuget\\packages\\awssdk.s3\\3.7.7.5\\awssdk.s3.3.7.7.5.nupkg.sha512"
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\awssdk.core\\3.7.5.8\\awssdk.core.3.7.5.8.nupkg.sha512",
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\awssdk.s3\\3.7.7.5\\awssdk.s3.3.7.7.5.nupkg.sha512"
   ],
   "logs": []
 }

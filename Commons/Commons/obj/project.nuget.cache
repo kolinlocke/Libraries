@@ -1,20 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "4aqmMzXItV9UTfRa4WJBsFbl5l/gc3ARxx5JyJ5FkuBCKOQNb98Avg77d7AX+GT/azrppfqkkYnGkGDoqhbLVQ==",
+  "dgSpecHash": "PcpXpTWWF2N5NYBylhT6Pm3fLNE7Z/Dz9bq4SSdfPa+1mz29UISEp8FVNqid5TWZLVRnQ6KsoopQgdWaKfoNGw==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Libraries\\Commons\\Commons\\Commons.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\P1003WPH1\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.data.oledb\\6.0.0\\system.data.oledb.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.diagnostics.performancecounter\\6.0.0\\system.diagnostics.performancecounter.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
-    "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
-    "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": []

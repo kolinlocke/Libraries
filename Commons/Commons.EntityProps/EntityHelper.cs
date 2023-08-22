@@ -68,6 +68,10 @@ namespace Commons.EntityProps
             [DataMember()]
             public Boolean IsKey { get; set; }
 
+            [DataMember()]
+            public Boolean IsExcluded { get; set; }
+
+
             public PropertyInfo PropertyInfo { get; set; }
         }
 
@@ -141,6 +145,7 @@ namespace Commons.EntityProps
             {
                 String FieldName = O_EntityProperty.Name;
                 Boolean IsKey = false;
+                Boolean IsExcluded = false;
 
                 var O_FieldAtt =
                     O_EntityProperty
@@ -153,12 +158,14 @@ namespace Commons.EntityProps
                     if (!String.IsNullOrEmpty(O_FieldAtt.FieldName))
                     { FieldName = O_FieldAtt.FieldName; }
                     IsKey = O_FieldAtt.IsKey;
+                    IsExcluded = O_FieldAtt.IsExcluded;
                 }
 
                 EntityField Ef = new EntityField();
                 Ef.FieldName = FieldName;
                 Ef.PropertyName = O_EntityProperty.Name;
                 Ef.IsKey = IsKey;
+                Ef.IsExcluded = IsExcluded;
                 Ef.PropertyInfo = O_EntityProperty;
 
                 EntityFields.Add(Ef);

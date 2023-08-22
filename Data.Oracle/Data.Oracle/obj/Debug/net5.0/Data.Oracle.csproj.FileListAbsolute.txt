@@ -5,7 +5,6 @@ C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.Assem
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.csproj.CoreCompileInputs.cache
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\Data.Oracle.deps.json
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\Data.Oracle.dll
-C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\ref\Data.Oracle.dll
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\Data.Oracle.pdb
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\Commons.dll
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\Commons.EntityProps.dll
@@ -21,3 +20,4 @@ C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\ref\Data.Oracle.d
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\Data.Oracle.pdb
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\DataFactory.dll
 C:\Projects\Libraries\Data.Oracle\Data.Oracle\bin\Debug\net5.0\DataFactory.pdb
+C:\Projects\Libraries\Data.Oracle\Data.Oracle\obj\Debug\net5.0\refint\Data.Oracle.dll

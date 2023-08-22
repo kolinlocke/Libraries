@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "a6W2HgEFrJ/4fsHwx+AmU9idu7s4h0kwHePsYqWEuL8tp0HAYIxkFV3TvWIANNJtLmAxdLQe2eqhMulwAldyWw==",
+  "dgSpecHash": "/cvReVVY6PtGyb6QbZR3LN6NXuYxPs6KirDwSuLxDRIZqn+rM8ewsHUPyirwsS/rDP9uoNJCyh+2Y7/4X00wOA==",
   "success": true,
   "projectFilePath": "C:\\Projects\\Libraries\\StorageOperation.Sftp\\StorageOperation.Sftp\\StorageOperation.Sftp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\JANERDY\\.nuget\\packages\\ssh.net\\2020.0.1\\ssh.net.2020.0.1.nupkg.sha512",
-    "C:\\Users\\JANERDY\\.nuget\\packages\\sshnet.security.cryptography\\1.3.0\\sshnet.security.cryptography.1.3.0.nupkg.sha512"
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\ssh.net\\2020.0.2\\ssh.net.2020.0.2.nupkg.sha512",
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\sshnet.security.cryptography\\1.3.0\\sshnet.security.cryptography.1.3.0.nupkg.sha512"
   ],
   "logs": []
 }

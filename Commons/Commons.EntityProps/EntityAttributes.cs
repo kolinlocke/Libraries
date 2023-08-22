@@ -19,5 +19,6 @@ namespace Commons.EntityProps
     {
         public String FieldName { get; set; }
         public Boolean IsKey { get; set; }
+        public Boolean IsExcluded { get; set; }
     }
 }

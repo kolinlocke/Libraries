@@ -643,7 +643,7 @@ namespace Data.SQLServer.Common
 
             String Query =
 $@"
-Insert Into {TableName}
+Insert Into [{TableName}]
     ({String.Join(" , ", Query_Insert_Fields)})
 
 {Query_Output}    
@@ -731,7 +731,7 @@ Into
 
             String Query =
 $@"
-Update {TableName }
+Update [{TableName}]
 Set
 {String.Join(" , ", Query_Update_Fields)}
 Where
@@ -774,7 +774,7 @@ Where
 
             String Query =
 $@"
-Delete From {TableName}
+Delete From [{TableName}]
 Where {String.Join(" And ", Query_Update_Where)}
 ";
 
@@ -1129,6 +1129,13 @@ Where {String.Join(" And ", Query_Update_Where)}
         #endregion
 
         #region _Methods.Various
+
+        public SqlConnection OpenConnection()
+        {
+            SqlConnection Cn = new SqlConnection(mConnectionString);
+            Cn.Open();
+            return Cn;
+        }
 
         //Code Source: https://stackoverflow.com/questions/35745226/net-system-type-to-sqldbtype
         static class SqlHelper

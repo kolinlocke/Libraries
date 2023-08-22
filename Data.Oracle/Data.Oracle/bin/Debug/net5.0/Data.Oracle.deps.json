@@ -12,7 +12,7 @@
           "Commons.EntityProps": "1.0.0",
           "DataFactory": "1.0.0",
           "DataInterfaces": "1.0.0",
-          "Oracle.ManagedDataAccess": "21.5.0"
+          "Oracle.ManagedDataAccess": "21.11.0"
         },
         "runtime": {
           "Data.Oracle.dll": {}
@@ -50,9 +50,9 @@
           }
         }
       },
-      "Oracle.ManagedDataAccess/21.5.0": {
+      "Oracle.ManagedDataAccess/21.11.0": {
         "dependencies": {
-          "System.Text.Json": "6.0.0"
+          "System.Text.Json": "6.0.1"
         },
         "runtime": {
           "lib/net462/Oracle.ManagedDataAccess.dll": {
@@ -224,7 +224,7 @@
           }
         }
       },
-      "System.Text.Json/6.0.0": {
+      "System.Text.Json/6.0.1": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encodings.Web": "6.0.0"
@@ -232,7 +232,7 @@
         "runtime": {
           "lib/netcoreapp3.1/System.Text.Json.dll": {
             "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+            "fileVersion": "6.0.121.56705"
           }
         }
       },
@@ -340,12 +340,12 @@
       "path": "newtonsoft.json/13.0.1",
       "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
-    "Oracle.ManagedDataAccess/21.5.0": {
+    "Oracle.ManagedDataAccess/21.11.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+LLQsxubDW+mwlIThX/HHteW8qajz3DZ/3o0JtaAA2kUYqbNqYu+7CZQpUkqKAMVvDay8SYo2NWWBrEvk3Szmw==",
-      "path": "oracle.manageddataaccess/21.5.0",
-      "hashPath": "oracle.manageddataaccess.21.5.0.nupkg.sha512"
+      "sha512": "sha512-N7E1UevG1xfbNaliOK6tdoyMqFAsHDTZWZEdBGvcA1qyu1epdVoZvUf2gmT8osURgB1+yBRAFADBAYTdfU2gIQ==",
+      "path": "oracle.manageddataaccess/21.11.0",
+      "hashPath": "oracle.manageddataaccess.21.11.0.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/6.0.0": {
       "type": "package",
@@ -438,12 +438,12 @@
       "path": "system.text.encodings.web/6.0.0",
       "hashPath": "system.text.encodings.web.6.0.0.nupkg.sha512"
     },
-    "System.Text.Json/6.0.0": {
+    "System.Text.Json/6.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
-      "path": "system.text.json/6.0.0",
-      "hashPath": "system.text.json.6.0.0.nupkg.sha512"
+      "sha512": "sha512-X3cTdM+jna1YyfTUzToW7aVgINFv7R1W4+1+3hua/YCyLjApPoR8fd+2Cep9DbfYjbv+rBx4K6dlmAWEJr9AHg==",
+      "path": "system.text.json/6.0.1",
+      "hashPath": "system.text.json.6.0.1.nupkg.sha512"
     },
     "System.Windows.Extensions/6.0.0": {
       "type": "package",
