@@ -11,9 +11,10 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Data.OleDb;
+//using System.Data.OleDb;
 using System.ComponentModel;
 using System.Collections;
+using System.Data.Common;
 
 namespace Commons
 {
@@ -82,7 +83,7 @@ namespace Commons
         /// <typeparam name="T"></typeparam>
         /// <param name="reader">OleDbDataReader</param>
         /// <returns></returns>
-        public static List<T> CreateListFromOleDbDataReader<T>(OleDbDataReader reader)
+        public static List<T> CreateListFromOleDbDataReader<T>(DbDataReader reader)
             where T : new()
         {
             // define return list

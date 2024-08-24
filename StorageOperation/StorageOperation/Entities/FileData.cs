@@ -22,6 +22,8 @@ namespace StorageOperation.Entities
 
         public String FullName { get; set; }
 
+        public Dictionary<String,String> Metadata { get; set; }
+
         Exception mEx;
         public Exception Ex { get { return this.mEx; } }
 

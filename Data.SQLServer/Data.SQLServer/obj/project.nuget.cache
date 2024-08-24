@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "E+3gcjGimKOhl0TwnCilrUuAfPXBMPff9UEGNRXrz2jMZUn6pojj9hchm59BANnGQVbbHUyYfSQOuQEGTmjtsw==",
+  "dgSpecHash": "Tvl3b9fxEXQ=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Libraries\\Data.SQLServer\\Data.SQLServer\\Data.SQLServer.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,7 @@
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.data.oledb\\6.0.0\\system.data.oledb.6.0.0.nupkg.sha512",
-    "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.data.sqlclient\\4.8.3\\system.data.sqlclient.4.8.3.nupkg.sha512",
+    "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.data.sqlclient\\4.8.6\\system.data.sqlclient.4.8.6.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.diagnostics.performancecounter\\6.0.0\\system.diagnostics.performancecounter.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\P1003WPH1\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",

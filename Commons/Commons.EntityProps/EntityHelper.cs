@@ -52,7 +52,7 @@ namespace Commons.EntityProps
 
             [DataMember()]
             public Object Value { get; set; }
-
+            
             [DataMember()]
             public Boolean Field_IgnoreCase { get; set; }
 
@@ -70,7 +70,6 @@ namespace Commons.EntityProps
 
             [DataMember()]
             public Boolean IsExcluded { get; set; }
-
 
             public PropertyInfo PropertyInfo { get; set; }
         }

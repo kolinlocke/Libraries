@@ -627,6 +627,8 @@ namespace Data.SQLServer.Common
 
                 Query_Returning_Fields.Add(Item_Def.FieldName);
                 Query_Output_Fields.Append($@" {Query_Output_Fields_Comma} Inserted.[{Item_Def.FieldName}] ");
+
+                Query_Output_Fields_Comma = ",";
             }
 
             //TO DO:
