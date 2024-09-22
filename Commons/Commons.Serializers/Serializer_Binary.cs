@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Commons.Serializers
 {
@@ -14,25 +16,35 @@ namespace Commons.Serializers
             FileInfo Obj_File = new FileInfo(Target_FilePath);
             if (!Obj_File.Directory.Exists)
             { Obj_File.Directory.Create(); }
-
-            FileStream Fs = new FileStream(Target_FilePath, FileMode.Create);
-            BinaryFormatter Formatter = new BinaryFormatter();
-            Formatter.Serialize(Fs, Source);
+                        
+            FileStream Fs = new FileStream(Target_FilePath, FileMode.Create);            
+            JsonSerializer.Serialize(Fs, Source);
+            Fs.Flush();
             Fs.Close();
             Fs.Dispose();
+
+            //FileStream Fs = new FileStream(Target_FilePath, FileMode.Create);
+            //BinaryFormatter Formatter = new BinaryFormatter();
+            //Formatter.Serialize(Fs, Source);
+            //Fs.Close();
+            //Fs.Dispose();
         }
 
         public String SerializeToString(T_Obj Source)
         {
-            MemoryStream Stream = new MemoryStream();
-            BinaryFormatter Formatter = new BinaryFormatter();
-            Formatter.Serialize(Stream, Source);
+            //MemoryStream Stream = new MemoryStream();
+            //BinaryFormatter Formatter = new BinaryFormatter();
+            //Formatter.Serialize(Stream, Source);
 
-            var Read = Convert.ToBase64String(Stream.ToArray());
+            //var Read = Convert.ToBase64String(Stream.ToArray());
 
-            Stream.Close();
-            Stream.Dispose();
+            //Stream.Close();
+            //Stream.Dispose();
 
+            //return Read;
+
+            var SerializedBytes = JsonSerializer.SerializeToUtf8Bytes(Source);
+            var Read = Convert.ToBase64String(SerializedBytes);
             return Read;
         }
 
@@ -42,11 +54,16 @@ namespace Commons.Serializers
 
             if (File.Exists(Source_FilePath))
             {
+                //FileStream Fs = new FileStream(Source_FilePath, FileMode.Open);
+                //BinaryFormatter Formatter = new BinaryFormatter();
+                //Result = (T_Obj)Formatter.Deserialize(Fs);
+                //Fs.Close();
+                //Fs.Dispose();
+
+                var Jti = JsonTypeInfo.CreateJsonTypeInfo<T_Obj>(JsonSerializerOptions.Default);
                 FileStream Fs = new FileStream(Source_FilePath, FileMode.Open);
-                BinaryFormatter Formatter = new BinaryFormatter();
-                Result = (T_Obj)Formatter.Deserialize(Fs);
-                Fs.Close();
-                Fs.Dispose();
+                Result = JsonSerializer.Deserialize(Fs, Jti);
+
             }
             else
             { throw new Exception("Source_FilePath doesn't exists."); }
@@ -58,12 +75,15 @@ namespace Commons.Serializers
         {
             T_Obj Result = default(T_Obj);
 
-            MemoryStream Stream = new MemoryStream(Convert.FromBase64String(Source));
-            BinaryFormatter Formatter = new BinaryFormatter();
-            Result = (T_Obj)Formatter.Deserialize(Stream);
+            //MemoryStream Stream = new MemoryStream(Convert.FromBase64String(Source));
+            //BinaryFormatter Formatter = new BinaryFormatter();
+            //Result = (T_Obj)Formatter.Deserialize(Stream);
 
-            Stream.Close();
-            Stream.Dispose();
+            //Stream.Close();
+            //Stream.Dispose();
+
+            var Jti = JsonTypeInfo.CreateJsonTypeInfo<T_Obj>(JsonSerializerOptions.Default);
+            Result = JsonSerializer.Deserialize(Source, Jti);
 
             return Result;
         }

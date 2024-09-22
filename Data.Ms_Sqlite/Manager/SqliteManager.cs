@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SQLite;
 using System.Data.SqlClient;
 using System.Data;
 using System.Data.Common;
 using Commons;
 using System.Data.SqlTypes;
 using Commons.EntityProps;
+using Microsoft.Data.Sqlite;
 
 namespace Data.Ms_Sqlite.Manager
 {
@@ -57,7 +57,7 @@ namespace Data.Ms_Sqlite.Manager
 
         protected struct Prepare_SaveDataRow_Returned
         {
-            public SQLiteCommand? Cmd;
+            public SqliteCommand? Cmd;
             public Boolean Result;
             public String TableName;
             public TableDef TableDef;
@@ -147,7 +147,7 @@ namespace Data.Ms_Sqlite.Manager
         public SqliteManager(String DbFile, String Password)
         {
             //String ConnectionString = $@"Data Source = {DbFile}; Version = 3; Password = {Password}";
-            String ConnectionString = $@"Data Source = {DbFile}; Version = 3";
+            String ConnectionString = $@"Data Source = {DbFile};";
             this.mConnectionString = ConnectionString;
             this.mIsConnected = true;
         }
@@ -156,15 +156,15 @@ namespace Data.Ms_Sqlite.Manager
 
         #region _Methods.PrepareQuery
 
-        public SQLiteCommand PrepareQuery(
+        public SqliteCommand PrepareQuery(
             String Query
             , QueryParameters Params
-            , SQLiteConnection? Cn = null
+            , SqliteConnection? Cn = null
             , CommandType Type = CommandType.Text)
         {
-            List<SQLiteParameter> SqlParams =
+            List<SqliteParameter> SqlParams =
                Params.Select(O =>
-                   new SQLiteParameter()
+                   new SqliteParameter()
                    {
                        ParameterName = O.Name,
                        Value = O.Value,
@@ -174,19 +174,19 @@ namespace Data.Ms_Sqlite.Manager
             return PrepareQuery(Query, SqlParams, Cn, Type);
         }
 
-        public SQLiteCommand PrepareQuery(
+        public SqliteCommand PrepareQuery(
             String Query
-            , List<SQLiteParameter>? Params = null
-            , SQLiteConnection? Cn = null
+            , List<SqliteParameter>? Params = null
+            , SqliteConnection? Cn = null
             , CommandType Type = CommandType.Text)
         {
             if (Cn == null)
             {
-                Cn = new SQLiteConnection(mConnectionString);
+                Cn = new SqliteConnection(mConnectionString);
                 Cn.Open();
             }
 
-            SQLiteCommand Cmd = new SQLiteCommand(Query);
+            SqliteCommand Cmd = new SqliteCommand(Query);
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             if (Params != null)
@@ -203,19 +203,19 @@ namespace Data.Ms_Sqlite.Manager
 
         public DataTable ExecuteQuery(
             String Query
-            , List<SQLiteParameter> Params
+            , List<SqliteParameter> Params
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         {
             Boolean Is_Cn = false;
             if (Cn == null)
             {
                 Is_Cn = true;
-                Cn = new SQLiteConnection(mConnectionString);
+                Cn = new SqliteConnection(mConnectionString);
                 Cn.Open();
             }
 
-            SQLiteCommand Cmd = new SQLiteCommand();
+            SqliteCommand Cmd = new SqliteCommand();
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
@@ -223,25 +223,24 @@ namespace Data.Ms_Sqlite.Manager
             if (Params != null)
             { Params.ForEach(O => Cmd.Parameters.Add(O)); }
 
-            DataSet Ds_QueryResult = new DataSet();
-            SQLiteDataAdapter Adp = new SQLiteDataAdapter(Cmd);
-            Adp.Fill(Ds_QueryResult);
+            var Reader = Cmd.ExecuteReader();
+            var Dt_Result = DatabaseMapping.CreateDataTableFromReader(Reader);
 
-            if (Is_Cn)
-            { Cn.Close(); }
+            //if (Is_Cn)
+            //{ Cn.Close(); }
 
-            return Ds_QueryResult.Tables[0];
+            return Dt_Result;            
         }
 
         public DataTable ExecuteQuery(
             String Query
             , QueryParameters Params
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         {
-            List<SQLiteParameter> SqlParams =
+            List<SqliteParameter> SqlParams =
                 (Params ?? new QueryParameters()).Select(O =>
-                    new SQLiteParameter()
+                    new SqliteParameter()
                     {
                         ParameterName = O.Name,
                         Value = O.Value,
@@ -250,13 +249,12 @@ namespace Data.Ms_Sqlite.Manager
             return ExecuteQuery(Query, SqlParams, Type, Cn);
         }
 
-        public DataTable ExecuteQuery(SQLiteCommand Cmd)
+        public DataTable ExecuteQuery(SqliteCommand Cmd)
         {
-            DataSet Ds_QueryResult = new DataSet();
-            SQLiteDataAdapter Adp = new SQLiteDataAdapter(Cmd);
-            Adp.Fill(Ds_QueryResult);
+            var Reader = Cmd.ExecuteReader();
+            var Dt_Result = DatabaseMapping.CreateDataTableFromReader(Reader);
 
-            return Ds_QueryResult.Tables[0];
+            return Dt_Result;
         }
 
         #endregion
@@ -267,12 +265,12 @@ namespace Data.Ms_Sqlite.Manager
             String Query
             , QueryParameters? Params = null
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         where T_Entity : class, new()
         {
-            List<SQLiteParameter> SqlParams =
+            List<SqliteParameter> SqlParams =
                (Params ?? new QueryParameters()).Select(O =>
-                   new SQLiteParameter()
+                   new SqliteParameter()
                    {
                        ParameterName = O.Name,
                        Value = O.Value,
@@ -283,20 +281,20 @@ namespace Data.Ms_Sqlite.Manager
 
         public List<T_Entity> ExecuteQuery<T_Entity>(
             String Query
-            , List<SQLiteParameter> Params
+            , List<SqliteParameter> Params
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         where T_Entity : class, new()
         {
             Boolean Is_Cn = false;
             if (Cn == null)
             {
                 Is_Cn = true;
-                Cn = new SQLiteConnection(mConnectionString);
+                Cn = new SqliteConnection(mConnectionString);
                 Cn.Open();
             }
 
-            SQLiteCommand Cmd = new SQLiteCommand();
+            SqliteCommand Cmd = new SqliteCommand();
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
@@ -306,13 +304,13 @@ namespace Data.Ms_Sqlite.Manager
 
             List<T_Entity> Returned = ExecuteQuery<T_Entity>(Cmd);
 
-            if (Is_Cn)
-            { Cn.Close(); }
+            //if (Is_Cn)
+            //{ Cn.Close(); }
 
             return Returned;
         }
 
-        public List<T> ExecuteQuery<T>(SQLiteCommand Cmd) where T : class, new()
+        public List<T> ExecuteQuery<T>(SqliteCommand Cmd) where T : class, new()
         {
             var Reader = Cmd.ExecuteReader(CommandBehavior.CloseConnection);
             var Schema = Reader.GetSchemaTable();
@@ -342,11 +340,11 @@ namespace Data.Ms_Sqlite.Manager
             String Query
             , QueryParameters Params
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         {
-            List<SQLiteParameter> SqlParams =
+            List<SqliteParameter> SqlParams =
                (Params ?? new QueryParameters()).Select(O =>
-                   new SQLiteParameter()
+                   new SqliteParameter()
                    {
                        ParameterName = O.Name,
                        Value = O.Value,
@@ -371,19 +369,19 @@ namespace Data.Ms_Sqlite.Manager
 
         public Int32 ExecuteNonQuery(
             String Query
-            , List<SQLiteParameter>? Params = null
+            , List<SqliteParameter>? Params = null
             , CommandType Type = CommandType.Text
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         {
             Boolean Is_Cn = false;
             if (Cn == null)
             {
                 Is_Cn = true;
-                Cn = new SQLiteConnection(mConnectionString);
+                Cn = new SqliteConnection(mConnectionString);
                 Cn.Open();
             }
 
-            SQLiteCommand Cmd = new SQLiteCommand();
+            SqliteCommand Cmd = new SqliteCommand();
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
@@ -422,7 +420,7 @@ namespace Data.Ms_Sqlite.Manager
           eSaveData_Process ProcessType
           , DataTable Data
           , String TableName = ""
-          , SQLiteConnection? Cn = null
+          , SqliteConnection? Cn = null
           , EntityKeys? Keys = null)
         {
             if (!Check_TableExists(TableName, Cn))
@@ -469,14 +467,14 @@ namespace Data.Ms_Sqlite.Manager
             eSaveDataRow_Process SaveDataRow_Process
             , String TableName
             , DataTable Data
-            , SQLiteConnection? Cn = null
+            , SqliteConnection? Cn = null
             , EntityKeys? Keys = null)
         {
             Prepare_SaveDataRow_Returned Returned =
                 new Prepare_SaveDataRow_Returned()
                 {
                     Insert_HasOutput = false,
-                    Cmd = new SQLiteCommand(),
+                    Cmd = new SqliteCommand(),
                     Result = false
                 };
 
@@ -530,12 +528,12 @@ namespace Data.Ms_Sqlite.Manager
         Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Insert(
             Prepare_SaveDataRow_Returned Returned
             , List<String> Entity_Fields
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         {
             String TableName = Returned.TableName;
             TableDef TableDef = Returned.TableDef;
 
-            List<SQLiteParameter> Params = new List<SQLiteParameter>();
+            List<SqliteParameter> Params = new List<SqliteParameter>();
             List<String> Query_Insert_Fields = new List<String>();
             List<String> Query_Insert_Field_Params = new List<String>();
 
@@ -548,9 +546,9 @@ namespace Data.Ms_Sqlite.Manager
                 Query_Insert_Fields.Add(Item_Def.FieldName);
                 Query_Insert_Field_Params.Add(ParamName);
 
-                SQLiteParameter Param = new SQLiteParameter();
+                SqliteParameter Param = new SqliteParameter();
                 Param.ParameterName = ParamName;
-                Param.Size = Item_Def.Length;
+                //Param.Size = Item_Def.Length;
                 //Param.DbType = Item_Def.DbType;
                 Param.Direction = ParameterDirection.Input;
                 Params.Add(Param);
@@ -632,12 +630,12 @@ Into
         Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Update(
           Prepare_SaveDataRow_Returned Returned
           , List<String> Entity_Fields
-          , SQLiteConnection? Cn = null)
+          , SqliteConnection? Cn = null)
         {
             String TableName = Returned.TableName;
             TableDef TableDef = Returned.TableDef;
 
-            List<SQLiteParameter> Params = new List<SQLiteParameter>();
+            List<SqliteParameter> Params = new List<SqliteParameter>();
             List<String> Query_Update_Fields = new List<String>();
             List<String> Query_Update_Field_Params = new List<String>();
             List<String> Query_Update_Where = new List<String>();
@@ -655,9 +653,9 @@ Into
                 Query_Update_Fields.Add(Query_Update_Field);
                 Query_Update_Field_Params.Add(ParamName);
 
-                SQLiteParameter Param = new SQLiteParameter();
+                SqliteParameter Param = new SqliteParameter();
                 Param.ParameterName = ParamName;
-                Param.Size = Item_Def.Length;
+                //Param.Size = Item_Def.Length;
                 //Param.DbType = Item_Def.DbType;
                 Param.Direction = ParameterDirection.Input;
                 Params.Add(Param);
@@ -674,9 +672,9 @@ Into
                 Query_Update_Where_Params.Add(ParamName);
 
                 //OracleParameter Param = new OracleParameter();
-                SQLiteParameter Param = new SQLiteParameter();
+                SqliteParameter Param = new SqliteParameter();
                 Param.ParameterName = ParamName;
-                Param.Size = Item_Def.Length;
+                //Param.Size = Item_Def.Length;
                 //Param.DbType = Item_Def.DbType;
                 Param.Direction = ParameterDirection.Input;
                 Params.Add(Param);
@@ -698,12 +696,12 @@ Where
             return Returned;
         }
 
-        Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Delete(Prepare_SaveDataRow_Returned Returned, SQLiteConnection? Cn = null)
+        Prepare_SaveDataRow_Returned Prepare_SaveDataRow_Delete(Prepare_SaveDataRow_Returned Returned, SqliteConnection? Cn = null)
         {
             String TableName = Returned.TableName;
             TableDef TableDef = Returned.TableDef;
 
-            List<SQLiteParameter> Params = new List<SQLiteParameter>();
+            List<SqliteParameter> Params = new List<SqliteParameter>();
             List<String> Query_Update_Where = new List<String>();
             List<String> Query_Delete_Where_Params = new List<String>();
 
@@ -717,9 +715,9 @@ Where
                 Query_Update_Where.Add(Query_Where);
                 Query_Delete_Where_Params.Add(ParamName);
 
-                SQLiteParameter Param = new SQLiteParameter();
+                SqliteParameter Param = new SqliteParameter();
                 Param.ParameterName = ParamName;
-                Param.Size = Item_Def.Length;
+                //Param.Size = Item_Def.Length;
                 //Param.DbType = Item_Def.DbType;
                 Param.Direction = ParameterDirection.Input;
                 Params.Add(Param);
@@ -742,7 +740,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             //Execute Prepared Query
             String TableName = Prepared.TableName;
             TableDef TableDef = Prepared.TableDef;
-            SQLiteCommand? Cmd = Prepared.Cmd;
+            SqliteCommand? Cmd = Prepared.Cmd;
 
             List<TableDef_Fields> List_TableDef = new List<TableDef_Fields>();
 
@@ -764,7 +762,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             if (Cmd == null)
             { throw new Exception("Line 788: Cmd is not initialized."); }
 
-            var ParamList = Cmd.Parameters.Cast<SQLiteParameter>().ToList();
+            var ParamList = Cmd.Parameters.Cast<SqliteParameter>().ToList();
 
             foreach (var Item_Def in List_TableDef)
             {
@@ -790,14 +788,12 @@ Where {String.Join(" And ", Query_Update_Where)}
                 //Retrieve Output for PK
                 if (Prepared.Insert_HasOutput)
                 {
-                    DataSet Ds_Output = new DataSet();
-                    SQLiteDataAdapter Adp = new SQLiteDataAdapter();
-                    Adp.SelectCommand = Cmd;
-                    Adp.Fill(Ds_Output);
+                    var Reader = Cmd.ExecuteReader();
+                    var Dt_Output = DatabaseMapping.CreateDataTableFromReader(Reader);
 
                     foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
                     {
-                        Data[Item_Def.FieldName] = ConvertValue(Item_Def.FieldType, Item_Def.Is_Nullable, Ds_Output.Tables[0].Rows[0][Item_Def.FieldName]);
+                        Data[Item_Def.FieldName] = ConvertValue(Item_Def.FieldType, Item_Def.Is_Nullable, Dt_Output.Rows[0][Item_Def.FieldName]);
                     }
                 }
                 else
@@ -807,7 +803,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             { Cmd.ExecuteNonQuery(); }
         }
 
-        public void DeleteData(DataTable Data, String TableName, SQLiteConnection? Cn = null)
+        public void DeleteData(DataTable Data, String TableName, SqliteConnection? Cn = null)
         {
             //Prevent unwanted table purges with this!
             if (Data.Rows.Count == 0)
@@ -839,7 +835,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             eSaveData_Process ProcessType
             , ref IList<T> Data
             , String TableName = ""
-            , SQLiteConnection? Cn = null
+            , SqliteConnection? Cn = null
             , EntityKeys? Keys = null)
         where T : class, new()
         {
@@ -889,7 +885,7 @@ Where {String.Join(" And ", Query_Update_Where)}
           eSaveData_Process ProcessType
           , ref T Data
           , String TableName = ""
-          , SQLiteConnection? Cn = null
+          , SqliteConnection? Cn = null
           , EntityKeys? Keys = null)
         where T : class, new()
         {
@@ -918,7 +914,7 @@ Where {String.Join(" And ", Query_Update_Where)}
         Prepare_SaveDataRow_Returned Prepare_SaveDataRow<T>(
             eSaveDataRow_Process SaveDataRow_Process
             , String TableName
-            , SQLiteConnection? Cn = null
+            , SqliteConnection? Cn = null
             , EntityKeys? Keys = null)
         {
             Prepare_SaveDataRow_Returned Returned =
@@ -977,7 +973,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             //Execute Prepared Query
             String TableName = Prepared.TableName;
             TableDef TableDef = Prepared.TableDef;
-            SQLiteCommand? Cmd = Prepared.Cmd;
+            SqliteCommand? Cmd = Prepared.Cmd;
 
             List<TableDef_Fields> List_TableDef = new List<TableDef_Fields>();
 
@@ -999,7 +995,7 @@ Where {String.Join(" And ", Query_Update_Where)}
             if (Cmd == null)
             { throw new Exception("Line 1023: Cmd is not initialized."); }
 
-            var ParamList = Cmd.Parameters.Cast<SQLiteParameter>().ToList();
+            var ParamList = Cmd.Parameters.Cast<SqliteParameter>().ToList();
 
             foreach (var Item_Def in List_TableDef)
             {
@@ -1011,7 +1007,8 @@ Where {String.Join(" And ", Query_Update_Where)}
                     {
                         if (Item_Def.Is_Nullable)
                         {
-                            Cmd.Parameters[ParamName].Value = CommonMethods.IsNull(Data.Get_EntityValue(Item_Def.FieldName), DBNull.Value);
+                            //Cmd.Parameters[ParamName].Value =  CommonMethods.IsNull(Data.Get_EntityValue(Item_Def.FieldName), DBNull.Value);
+                            Cmd.Parameters[ParamName].Value = CommonMethods.Convert_Value(Item_Def.FieldType, Data.Get_EntityValue(Item_Def.FieldName), null);
                         }
                         else
                         {
@@ -1040,14 +1037,12 @@ Where {String.Join(" And ", Query_Update_Where)}
                     }
                     */
 
-                    DataSet Ds_Output = new DataSet();
-                    SQLiteDataAdapter Adp = new SQLiteDataAdapter();
-                    Adp.SelectCommand = Cmd;
-                    Adp.Fill(Ds_Output);
+                    var Reader = Cmd.ExecuteReader();
+                    var Dt_Output = DatabaseMapping.CreateDataTableFromReader(Reader);
 
                     foreach (var Item_Def in TableDef.ToList().Where(O => O.Is_PK))
                     {
-                        Data.Set_EntityValue(Item_Def.FieldName, ConvertValue(Item_Def.FieldType, Item_Def.Is_Nullable, Ds_Output.Tables[0].Rows[0][Item_Def.FieldName]));
+                        Data.Set_EntityValue(Item_Def.FieldName, ConvertValue(Item_Def.FieldType, Item_Def.Is_Nullable, Dt_Output.Rows[0][Item_Def.FieldName]));
                     }
                 }
                 else
@@ -1060,7 +1055,7 @@ Where {String.Join(" And ", Query_Update_Where)}
         public void DeleteData<T>(
             T Data
             , String TableName = ""
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         where T : class, new()
         {
             if (String.IsNullOrEmpty(TableName))
@@ -1075,7 +1070,7 @@ Where {String.Join(" And ", Query_Update_Where)}
         public void DeleteData<T>(
             IList<T> Data
             , String TableName = ""
-            , SQLiteConnection? Cn = null)
+            , SqliteConnection? Cn = null)
         where T : class, new()
         {
             if (String.IsNullOrEmpty(TableName))
@@ -1095,15 +1090,15 @@ Where {String.Join(" And ", Query_Update_Where)}
             return Returned_DbType;
         }
 
-        Boolean Check_TableExists(String TableName, SQLiteConnection? Cn = null)
+        Boolean Check_TableExists(String TableName, SqliteConnection? Cn = null)
         {
             String Query =
 @"
 select count(1) Ct from sqlite_master where name = $P_TableName
 ";
 
-            List<SQLiteParameter> Params = new List<SQLiteParameter>();
-            Params.Add(new SQLiteParameter("$P_TableName", TableName) { DbType = DbType.String, Direction = System.Data.ParameterDirection.Input });
+            List<SqliteParameter> Params = new List<SqliteParameter>();
+            Params.Add(new SqliteParameter("$P_TableName", TableName) { DbType = DbType.String, Direction = System.Data.ParameterDirection.Input });
             DataTable Dt = this.ExecuteQuery(Query, Params, Cn: Cn);
 
             var TableCt = CommonMethods.Convert_Int32(Dt.Rows[0]["Ct"]);
@@ -1116,7 +1111,7 @@ select count(1) Ct from sqlite_master where name = $P_TableName
             { return false; }
         }
 
-        TableDef Get_TableDef(String TableName, SQLiteConnection? Cn = null)
+        TableDef Get_TableDef(String TableName, SqliteConnection? Cn = null)
         {
             String Query =
 @"
@@ -1132,8 +1127,8 @@ from
 	pragma_table_info($P_TableName) Tb
 ";
 
-            List<SQLiteParameter> Params = new List<SQLiteParameter>();
-            Params.Add(new SQLiteParameter("$P_TableName", TableName) { DbType = DbType.String, Direction = System.Data.ParameterDirection.Input });
+            List<SqliteParameter> Params = new List<SqliteParameter>();
+            Params.Add(new SqliteParameter("$P_TableName", TableName) { DbType = DbType.String, Direction = System.Data.ParameterDirection.Input });
             DataTable Dt = this.ExecuteQuery(Query, Params, CommandType.Text, Cn);
 
             TableDef Def = new TableDef();

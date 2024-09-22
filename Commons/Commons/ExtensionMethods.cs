@@ -134,6 +134,13 @@ namespace Commons
             return obj.GetType().GetProperty(propertyName).PropertyType;
         }
 
+        public static List<String> GetProperties<T>(this T obj) where T : class
+        {
+            var Props = obj.GetType().GetProperties().ToList();
+            var Returned =  Props.Select(O_Prop => O_Prop.Name).ToList();
+            return Returned;
+        }
+
         private class SimpleTypeComparer : IEqualityComparer<Type>
         {
             public bool Equals(Type x, Type y)

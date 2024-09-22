@@ -52,7 +52,7 @@ namespace Commons.EntityProps
 
             [DataMember()]
             public Object Value { get; set; }
-            
+
             [DataMember()]
             public Boolean Field_IgnoreCase { get; set; }
 
@@ -136,8 +136,51 @@ namespace Commons.EntityProps
 
         public static EntityFields Get_EntityFields<T>()
         {
+            /*
             EntityFields EntityFields = new EntityFields();
             Type EntityType = typeof(T);
+
+            var EntityProperties = EntityType.GetProperties().ToList();
+            EntityProperties.ForEach(O_EntityProperty =>
+            {
+                String FieldName = O_EntityProperty.Name;
+                Boolean IsKey = false;
+                Boolean IsExcluded = false;
+
+                var O_FieldAtt =
+                    O_EntityProperty
+                        .GetCustomAttributes(typeof(EntityFieldAttribute), true)
+                        .Select(O => (EntityFieldAttribute)O)
+                        .FirstOrDefault();
+
+                if (O_FieldAtt != null)
+                {
+                    if (!String.IsNullOrEmpty(O_FieldAtt.FieldName))
+                    { FieldName = O_FieldAtt.FieldName; }
+                    IsKey = O_FieldAtt.IsKey;
+                    IsExcluded = O_FieldAtt.IsExcluded;
+                }
+
+                EntityField Ef = new EntityField();
+                Ef.FieldName = FieldName;
+                Ef.PropertyName = O_EntityProperty.Name;
+                Ef.IsKey = IsKey;
+                Ef.IsExcluded = IsExcluded;
+                Ef.PropertyInfo = O_EntityProperty;
+
+                EntityFields.Add(Ef);
+            });
+
+            return EntityFields;
+        */
+            return Get_EntityFields(typeof(T));
+
+        }
+
+        public static EntityFields Get_EntityFields(Type TypeObj)
+        {
+            EntityFields EntityFields = new EntityFields();
+            Type EntityType = TypeObj;
 
             var EntityProperties = EntityType.GetProperties().ToList();
             EntityProperties.ForEach(O_EntityProperty =>
@@ -194,12 +237,36 @@ namespace Commons.EntityProps
             if (EntityField != null)
             { return EntityField.PropertyInfo.GetValue(Entity); }
             else
-            { return default(T); }
+            { return null; }
         }
 
+        public static Object Get_EntityValue(this Object Entity, String FieldName)
+        {
+            var EntityType = Entity.GetType();
+            var EntityFields = Get_EntityFields(EntityType);
+            var EntityField = EntityFields.FirstOrDefault(O => O.FieldName == FieldName);
+            if (EntityField != null)
+            { return EntityField.PropertyInfo.GetValue(Entity); }
+            else
+            { return null; }
+        }
         public static void Set_EntityValue<T>(this T Entity, String FieldName, Object Value) where T : class
         {
             var EntityFields = Get_EntityFields<T>();
+            var EntityField = EntityFields.FirstOrDefault(O => O.FieldName == FieldName);
+            if (EntityField != null)
+            {
+                if (EntityField.PropertyInfo.CanWrite)
+                {
+                    Object ConvertedValue = CommonMethods.Convert_Value(EntityField.PropertyInfo.PropertyType, Value);
+                    EntityField.PropertyInfo.SetValue(Entity, ConvertedValue, null);
+                }
+            }
+        }
+
+        public static void Set_EntityValue(this Object Entity, String FieldName, Object Value)
+        {
+            var EntityFields = Get_EntityFields(Entity.GetType());
             var EntityField = EntityFields.FirstOrDefault(O => O.FieldName == FieldName);
             if (EntityField != null)
             {

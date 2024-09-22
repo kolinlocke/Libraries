@@ -18,7 +18,7 @@ namespace StorageOperation.GDrive
     public class StorageOperation : Interface_StorageOperation
     {
         //String mConnectionData = "";
-        String mCredentialsFile = "";
+        String mCredentialsData = "";
         String mTempPath = "";
 
         GoogleCredential? mCred = null;
@@ -27,9 +27,11 @@ namespace StorageOperation.GDrive
         public void Setup_ConnectionData(string ConnectionData)
         {
             //this.mConnectionData = ConnectionData;
-            this.mCredentialsFile = ConnectionData;
+            this.mCredentialsData = ConnectionData;
 
-            this.mCred = GoogleCredential.FromFile(this.mCredentialsFile).CreateScoped(DriveService.ScopeConstants.Drive);
+            //this.mCred = GoogleCredential.FromFile(this.mCredentialsFile).CreateScoped(DriveService.ScopeConstants.Drive);
+            this.mCred = GoogleCredential.FromJson(this.mCredentialsData).CreateScoped(DriveService.ScopeConstants.Drive);
+
             this.mDriveSvc = new DriveService(new BaseClientService.Initializer() { HttpClientInitializer = this.mCred });
         }
 
@@ -96,7 +98,7 @@ namespace StorageOperation.GDrive
                 {
                     { "MimeType", O_File.MimeType },
                     { "Id", O_File.Id },
-                    { "Parents", String.Join(',', O_File.Parents) }
+                    { "Parents", O_File.Parents != null ? String.Join(',', O_File.Parents) : "" }
                 };
 
                 if (O_File.MimeType == "application/vnd.google-apps.folder")
@@ -169,7 +171,7 @@ namespace StorageOperation.GDrive
 
         public void Delete_File(string TargetPath)
         {
-            var credential = GoogleCredential.FromFile(this.mCredentialsFile).CreateScoped(DriveService.ScopeConstants.Drive);
+            var credential = GoogleCredential.FromFile(this.mCredentialsData).CreateScoped(DriveService.ScopeConstants.Drive);
             var service = new DriveService(new BaseClientService.Initializer() { HttpClientInitializer = credential });
 
             var Trg_FileName = Path.GetFileName(TargetPath);

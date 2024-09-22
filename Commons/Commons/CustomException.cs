@@ -16,7 +16,7 @@ namespace Commons
 
         public CustomException(String Message, Exception Ex) : base(Message, Ex) { }
 
-        protected CustomException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        //protected CustomException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
     [Serializable()]

@@ -21,25 +21,25 @@ namespace Commons
     public class DatabaseMapping
     {
         // function that set the given object from the given data row
-		private static void SetItemFromDataRow<T>(T item, DataRow row)
-			where T : new()
-		{
-			// go through each column
-			foreach (DataColumn c in row.Table.Columns)
-			{
-				// find the property for the column
-				PropertyInfo p = item.GetType().GetProperty(c.ColumnName);
-		 
-				// if exists, set the value
-				if (p != null && row[c] != DBNull.Value && p.CanWrite)
-				{
+        private static void SetItemFromDataRow<T>(T item, DataRow row)
+            where T : new()
+        {
+            // go through each column
+            foreach (DataColumn c in row.Table.Columns)
+            {
+                // find the property for the column
+                PropertyInfo p = item.GetType().GetProperty(c.ColumnName);
+
+                // if exists, set the value
+                if (p != null && row[c] != DBNull.Value && p.CanWrite)
+                {
                     if (p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     { p.SetValue(item, Convert.ChangeType(row[c], Nullable.GetUnderlyingType(p.PropertyType)), null); }
                     else
                     { p.SetValue(item, Convert.ChangeType(row[c], p.PropertyType), null); }
-				}
-			}
-		}
+                }
+            }
+        }
 
         // function that creates an object from the given data row
         private static T CreateItemFromDataRow<T>(DataRow row)
@@ -49,7 +49,7 @@ namespace Commons
             T item = new T();
             // set the item
             SetItemFromDataRow(item, row);
- 
+
             // return
             return item;
         }
@@ -116,6 +116,32 @@ namespace Commons
             }
             // return the list
             return lst;
+        }
+
+        public static DataTable CreateDataTableFromReader(DbDataReader reader)
+        {
+            DataTable Dt_Result = new DataTable();
+
+            var Columns = reader.GetColumnSchema();
+            foreach (var Item_Column in Columns)
+            {
+                DataColumn Dt_Col = new DataColumn();
+                Dt_Col.ColumnName = Item_Column.ColumnName;
+                Dt_Col.DataType = Item_Column.DataType;
+                Dt_Result.Columns.Add(Dt_Col);
+            }
+
+            while (reader.Read())
+            {
+                DataRow Item_Row = Dt_Result.NewRow();
+
+                foreach (var Item_Column in Columns)
+                { Item_Row[Item_Column.ColumnName] = reader[Item_Column.ColumnName]; }
+
+                Dt_Result.Rows.Add(Item_Row);               
+            }
+
+            return Dt_Result;
         }
 
         /// <summary>
