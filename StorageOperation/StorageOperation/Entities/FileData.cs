@@ -11,9 +11,16 @@ namespace StorageOperation.Entities
     {
         Func<String, GetFileResult> mFunc_GetFile;
 
-        public FileData(Func<String, GetFileResult> Func_GetFile)
+        Func<FileData, GetFileResult> mFunc_GetFileByFileData;
+
+        public FileData(Func<String, GetFileResult> Func)
         {
-            this.mFunc_GetFile = Func_GetFile;
+            this.mFunc_GetFile = Func;
+        }
+
+        public FileData(Func<FileData, GetFileResult> Func)
+        {
+            this.mFunc_GetFileByFileData = Func;
         }
 
         public Boolean Is_Directory { get; set; }
@@ -22,7 +29,7 @@ namespace StorageOperation.Entities
 
         public String FullName { get; set; }
 
-        public Dictionary<String,String> Metadata { get; set; }
+        public Dictionary<String, String> Metadata { get; set; }
 
         Exception mEx;
         public Exception Ex { get { return this.mEx; } }
@@ -34,14 +41,19 @@ namespace StorageOperation.Entities
             {
                 if (this.mFile == null)
                 {
-                    //this.mFile = this.mFunc_GetFile(this.FileName);
-                    var GetFileResult = this.mFunc_GetFile(this.FileName);
+                    GetFileResult GetFileResult = null;
+
+                    if (this.mFunc_GetFile != null)
+                    { GetFileResult = this.mFunc_GetFile(this.FileName); }
+                    else if (this.mFunc_GetFileByFileData != null)
+                    { GetFileResult = this.mFunc_GetFileByFileData(this); }
+
                     if (GetFileResult.Result)
                     { this.mFile = GetFileResult.File; }
                     else
                     { this.mEx = GetFileResult.Ex; }
 
-                    return this.mFile;
+                    return this.mFile;                    
                 }
                 else
                 { return this.mFile; }
