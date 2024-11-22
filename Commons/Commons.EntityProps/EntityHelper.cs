@@ -123,10 +123,30 @@ namespace Commons.EntityProps
             return EntityName;
         }
 
+        public static String Get_EntityName(Type EntityType)
+        {
+            String EntityName = "";
+            var EntityAtt = EntityType.GetCustomAttributes(typeof(EntityAttribute), true);
+            if (EntityAtt.Any())
+            { EntityName = (EntityAtt.FirstOrDefault() as EntityAttribute).EntityName; }
+
+            return EntityName;
+        }
+
         public static String Get_QueryName<T>()
         {
             String QueryName = "";
             Type EntityType = typeof(T);
+            var EntityAtt = EntityType.GetCustomAttributes(typeof(EntityAttribute), true);
+            if (EntityAtt.Any())
+            { QueryName = (EntityAtt.FirstOrDefault() as EntityAttribute).QueryName; }
+
+            return QueryName;
+        }
+
+        public static String Get_QueryName(Type EntityType)
+        {
+            String QueryName = "";
             var EntityAtt = EntityType.GetCustomAttributes(typeof(EntityAttribute), true);
             if (EntityAtt.Any())
             { QueryName = (EntityAtt.FirstOrDefault() as EntityAttribute).QueryName; }

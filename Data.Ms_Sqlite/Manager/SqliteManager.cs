@@ -1084,6 +1084,13 @@ Where {String.Join(" And ", Query_Update_Where)}
 
         #region _Methods.Various
 
+        public SqliteConnection OpenConnection()
+        {
+            SqliteConnection Cn = new SqliteConnection(mConnectionString);
+            Cn.Open();
+            return Cn;
+        }
+
         DbType GetDbType(Type DataType)
         {
             var Returned_DbType = DbTypeMap.FirstOrDefault(O => O.Value == DataType).Key;
