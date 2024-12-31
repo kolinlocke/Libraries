@@ -13,5 +13,7 @@ namespace DataInterfaces.Interfaces
         List<T_Entity> ExecuteQuery();
 
         List<T_Entity> ExecuteQuery(EntityQueryParameters Parameters);
+
+        event Action<String> MessageEvent;
     }
 }

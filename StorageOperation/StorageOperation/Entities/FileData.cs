@@ -44,7 +44,7 @@ namespace StorageOperation.Entities
                     GetFileResult GetFileResult = null;
 
                     if (this.mFunc_GetFile != null)
-                    { GetFileResult = this.mFunc_GetFile(this.FileName); }
+                    { GetFileResult = this.mFunc_GetFile(this.FullName); }
                     else if (this.mFunc_GetFileByFileData != null)
                     { GetFileResult = this.mFunc_GetFileByFileData(this); }
 

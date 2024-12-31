@@ -191,7 +191,7 @@ namespace StorageOperation.GDrive
 
             List.Files.ToList().ForEach(O_File =>
             {
-                var Fd = new FileData(this.Get_FileByFileData) { FileName = O_File.Name };
+                var Fd = new FileData(this.Get_FileByFileData) { FileName = O_File.Name, FullName = O_File.Name };
                 Fd.Metadata = new Dictionary<string, string>
                 {
                     { "MimeType", O_File.MimeType },

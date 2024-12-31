@@ -127,6 +127,8 @@ namespace Data.SQLServer.Common
         public String mConnectionString;
         public SqlConnection mCn;
 
+        const Int32 cns_Timeout = 600; //Connection Timeout in Seconds
+
         #endregion
 
         #region _Constructor
@@ -243,6 +245,7 @@ namespace Data.SQLServer.Common
             SqlCommand Cmd = new SqlCommand();
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
+            Cmd.CommandTimeout = cns_Timeout;
             Params.ForEach(O => Cmd.Parameters.Add(O));
             Cmd.CommandType = Type;
             Cmd.Prepare();
@@ -289,6 +292,7 @@ namespace Data.SQLServer.Common
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
+            Cmd.CommandTimeout = cns_Timeout;
 
             if (Params != null)
             { Params.ForEach(O => Cmd.Parameters.Add(O)); }
@@ -353,8 +357,9 @@ namespace Data.SQLServer.Common
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
+            Cmd.CommandTimeout = cns_Timeout;
 
-            if (Params != null)
+			if (Params != null)
             { Params.ForEach(O => Cmd.Parameters.Add(O)); }
 
             List<T_Entity> Returned = ExecuteQuery<T_Entity>(Cmd);
@@ -434,7 +439,9 @@ namespace Data.SQLServer.Common
             Cmd.Connection = Cn;
             Cmd.CommandText = Query;
             Cmd.CommandType = Type;
-            if (Params != null)
+			Cmd.CommandTimeout = cns_Timeout;
+
+			if (Params != null)
             { Params.ForEach(O => Cmd.Parameters.Add(O)); }
 
             var ExecuteResult = Cmd.ExecuteNonQuery();
